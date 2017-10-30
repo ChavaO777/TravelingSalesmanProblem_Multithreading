@@ -1,0 +1,20 @@
+// RequiredFunctions.txt
+
+Fernando
+
+1. int* generateRandomPopulation(int amountOfCities)
+2. int populationAlreadyExists(int* newPopulation, int** previousPopulations)
+3. void saveValidPopulation(int* newPopulation, int** previousPopulations)
+
+Acis
+
+1. int main()
+2. void readInput()
+3. double computeDistance(int indexCoord1, int indexCoord2)
+4. struct individual* solution computeOverallDistance(int* population)
+5. void createMutation(int* population)
+
+Salvador
+
+1. int** selectKBest(int** )
+2. int* generateMix(int* individual1, individual2)

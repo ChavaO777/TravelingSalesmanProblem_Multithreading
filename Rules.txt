@@ -1,0 +1,21 @@
+// Rules.txt
+
+Team work:
+
+	- Acis: 
+
+		1. Input
+		2. Mutación
+
+	- Fernando:
+
+		1. Generación de población (crear permutaciones)
+
+	- Salvador:
+
+		1. Crear cruzas (A partir de dos individuos (arreglo de n enteros; permutación del 1 al n) crear otro individuo (arreglo de n enteros; permutación del 1 al n))
+
+1. All the code must be documented.
+2. All the variables must have appropriate names according to the context.
+3. All the names of variables and functions must be in English
+4. Functions must be as
