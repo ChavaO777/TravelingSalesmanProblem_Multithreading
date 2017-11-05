@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <math.h>
 #define EARTH_RADIUS_KM 6371 // authalic radius based on/extracted from surface area;
-#define radianes (M_PI / 180.0) //approximation of the radius of the average circumference
 
 /** Structure of an individual. It includes an array of integers representing
 *   the permutation of the n cities (0 to n - 1) that form that solution and 
@@ -9,9 +8,11 @@
 *   back to the first city.
 */ 
 struct city{
-    int id;//id of the city
-    double latitude;//latitude of the cities
-    double longitude;//longitude  of the cities
+
+    int id; //id of the city
+    double latitude; //latitude of the cities
+    double longitude; //longitude  of the cities
+
 };//end of the city struct
 
 struct individual {
@@ -25,7 +26,7 @@ void readInput(struct city citiesArray[], int numberCities){
   
     for(int i = 0; i < numberCities; i++){
         
-        citiesArray[i].id = i + 1;
+        citiesArray[i].id = i;
         scanf("%lf %lf", &citiesArray[i].latitude, &citiesArray[i].longitude);
     }
 }//end of the readInput function 
@@ -38,17 +39,19 @@ int readCities(){
     return totalCities;
 }
 
+//Function to display the read input
 void displayCities(struct city citiesArray[], int numberCities){
 
-    printf("\n");
+    printf("\n"); //Break line for aesthetics
 
     for(int i = 0; i < numberCities; i++){
-
+        
+        //Print all the information of a given city
         printf("City id: %d; Latitude: %lf; Longitude: %f\n", citiesArray[i].id, citiesArray[i].latitude, citiesArray[i].longitude);
     }
 
-    printf("\n");
-}
+    printf("\n"); //Break line for aesthetics
+}//End of the displayCities function
 
 // This function converts decimal degrees to radians
 double convertDegreesToRadians(double degrees) {
