@@ -2,11 +2,9 @@
 #include <math.h>
 #define EARTH_RADIUS_KM 6371 // authalic radius based on/extracted from surface area;
 
-/** Structure of an individual. It includes an array of integers representing
-*   the permutation of the n cities (0 to n - 1) that form that solution and 
-*   the total distance traveled to visit all n cities in that order and come
-*   back to the first city.
-*/ 
+/**
+ * Structure of a city. It includes an integer id, its latitude and longitude
+ */
 struct city{
 
     int id; //id of the city
@@ -15,11 +13,16 @@ struct city{
 
 };//end of the city struct
 
-struct individual {
+/** Structure of a chromosome. It includes an array of integers representing
+*   the permutation of the n cities (0 to n - 1) that form that solution and 
+*   the total distance traveled to visit all n cities in that order and come
+*   back to the first city.
+*/ 
+struct chromosome {
     
     int* citiesPermutation; // a pointer to an integer corresponding to the permutation of the n cities
     double totalDistance; // the total distance traveled
-};//end of the individual struct
+};//end of the chromosome struct
 
 //Function that reads the input
 void readInput(struct city citiesArray[], int numberCities){
