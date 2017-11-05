@@ -93,10 +93,25 @@ double computeDistance(int indexCoord1, int indexCoord2, struct city citiesArray
     return 2.0 * EARTH_RADIUS_KM * asin(sqrt(u * u + cos(lat1rad) * cos(lat2rad) * v * v));
 }//end of the computeDistance function
 
-/*struct individual* solution computeOverallDistance(int* population) {
-
-
-}  */ 
+/*
+*   this function calculate the total distance of all chromosome in the array.
+*   The function recive, first, the structure array where chromosome are. 
+*   Second Recive the structure array where the cities are
+*   third recive the total number chromosome are.
+*/
+void computeOverallDistance(struct chromosome chromosomeArray[],struct city citiesArray[],int numberCities, int numberOfChromosome) {
+    int chromosomeIteration;// varaible for the first for
+    for(chromosomeIteration = 0;chromosomeIteration < numberOfChromosome;chromosomeIteration++){
+        int* chromosom = chromosomeArray[chromosomeIteration].citiesPermutation ;//Pointer where chromosome are
+        double totalDistance = 0;
+        int citiesIteration;// varaible for the second for
+        for(citiesIteration = 1; citiesIteration < numberCities; citiesIteration++){
+            //calling computeDistance function and store in totalDistance variable
+            totalDistance += computeDistance(chromosom[citiesIteration -1],chromosom[citiesIteration], citiesArray);
+        }
+        chromosomeArray[chromosomeIteration].totalDistance = totalDistance;//store the total distance in the chromosome structure
+    }
+}  //end of computeOverallDistance
 
 //main function
 int main(){
@@ -104,7 +119,6 @@ int main(){
     int numberCities = readCities();//store the number of cities in the file
     struct city citiesArray[numberCities];//array of structures of city 
     readInput(citiesArray, numberCities);//read the values of latitude and longitude in the file
-    displayCities(citiesArray, numberCities);
-    
+    displayCities(citiesArray, numberCities);//Display the cities information.
     return 0;
 }//end of the main function
