@@ -96,6 +96,13 @@ double computeDistanceBetweenCities(int indexCoord1, int indexCoord2, struct cit
     return 2.0 * EARTH_RADIUS_KM * asin(sqrt(u * u + cos(lat1rad) * cos(lat2rad) * v * v));
 }//end of the computeDistance function
 
+/**
+ * Function that sets the total distance traveled using the cities permutation of a given chromosome.
+ * 
+ * @param chromosome a pointer to a chromosome struct whose total distance traveled we want to calculte
+ * @param citiesArray the array of cities given by the input
+ * @param numberCities an integer number representing the total amount of cities in the input
+ */ 
 void setChromosomeTotalDistance(struct chromosome* chromosome, struct city* citiesArray[], int numberCities){
 
     double totalDistance = 0;
@@ -107,8 +114,11 @@ void setChromosomeTotalDistance(struct chromosome* chromosome, struct city* citi
         totalDistance += computeDistanceBetweenCities(citiesPermutation[citiesIndex - 1], citiesPermutation[citiesIndex], citiesArray);
     }
 
+    //The last trip is from the last city to the first one
+    totalDistance += computeDistanceBetweenCities(citiesPermutation[numberCities - 1], citiesPermutation[0], citiesArray); 
+
     chromosome->totalDistance = totalDistance;//store the total distance in the chromosome structure
-}
+} //End of the setChromosomeTotalDistance() function
 
 /**
 *   Function to calculate the total distance traveled by all chromosomes in the array.

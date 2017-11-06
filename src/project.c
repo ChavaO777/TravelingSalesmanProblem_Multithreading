@@ -68,7 +68,7 @@ int populationAlreadyExists(int *newPopulation,int ** previousPopulations, int n
 
     for(j = 0; j < filas - 1; j++){
 
-      if(previousPopulations[j][i]!=newPopulation[i]){
+      if(previousPopulations[j][i] != newPopulation[i]){
 
         checksum++;
       }
