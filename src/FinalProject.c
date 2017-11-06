@@ -31,9 +31,9 @@ void readInput(struct city* citiesArray[], int numberCities){
   
     for(int i = 0; i < numberCities; i++){
 
-        citiesArray[i] = (struct city*) malloc(sizeof(struct city));
-        citiesArray[i]->id = i;
-        scanf("%lf %lf", &citiesArray[i]->latitude, &citiesArray[i]->longitude);
+        citiesArray[i] = (struct city*) malloc(sizeof(struct city)); //Assign memory for this pointer to city struct
+        citiesArray[i]->id = i; //Set the id of the city 
+        scanf("%lf %lf", &citiesArray[i]->latitude, &citiesArray[i]->longitude); //Read the city's latitude and longitude
     }
 }//end of the readInput function 
 
