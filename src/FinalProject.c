@@ -27,13 +27,12 @@ struct chromosome {
 };//end of the chromosome struct
 
 //Function that reads the input
-void readInput(struct city* citiesArray[], int numberCities){
+void readInput(struct city citiesArray[], int numberCities){
   
     for(int i = 0; i < numberCities; i++){
 
-        citiesArray[i] = (struct city*) malloc(sizeof(struct city)); //Assign memory for this pointer to city struct
-        citiesArray[i]->id = i; //Set the id of the city 
-        scanf("%lf %lf", &citiesArray[i]->latitude, &citiesArray[i]->longitude); //Read the city's latitude and longitude
+        citiesArray[i].id = i; //Set the id of the city 
+        scanf("%lf %lf", &citiesArray[i].latitude, &citiesArray[i].longitude); //Read the city's latitude and longitude
     }
 }//end of the readInput function 
 
@@ -46,14 +45,14 @@ int readCities(){
 }
 
 //Function to display the read input
-void displayCities(struct city* citiesArray[], int numberCities){
+void displayCities(struct city citiesArray[], int numberCities){
 
     printf("\n"); //Break line for aesthetics
 
     for(int i = 0; i < numberCities; i++){
         
         //Print all the information of a given city
-        printf("City id: %d; Latitude: %lf; Longitude: %f\n", citiesArray[i]->id, citiesArray[i]->latitude, citiesArray[i]->longitude);
+        printf("City id: %d; Latitude: %lf; Longitude: %f\n", citiesArray[i].id, citiesArray[i].latitude, citiesArray[i].longitude);
     }
 
     printf("\n"); //Break line for aesthetics
@@ -75,14 +74,14 @@ double convertRadiansToDegrees(double radians) {
 *   Computes the distance between two cities given their indices. It is an implementation
 *   of the Haversine formula (https://en.wikipedia.org/wiki/Haversine_formula)
 */
-double computeDistanceBetweenCities(int indexCoord1, int indexCoord2, struct city* citiesArray[]){
+double computeDistanceBetweenCities(int indexCoord1, int indexCoord2, struct city citiesArray[]){
 
     double lat1deg, lng1deg, lat2deg, lng2deg; 
     
-    lat1deg = citiesArray[indexCoord1]->latitude; //Read the latitude of the first city in degrees
-    lng1deg = citiesArray[indexCoord1]->longitude; //Read the longitude of the first city in degrees    
-    lat2deg = citiesArray[indexCoord2]->latitude; //Read the latitude of the second city in degrees
-    lng2deg = citiesArray[indexCoord2]->longitude; //Read the longitude of the second city in degrees
+    lat1deg = citiesArray[indexCoord1].latitude; //Read the latitude of the first city in degrees
+    lng1deg = citiesArray[indexCoord1].longitude; //Read the longitude of the first city in degrees    
+    lat2deg = citiesArray[indexCoord2].latitude; //Read the latitude of the second city in degrees
+    lng2deg = citiesArray[indexCoord2].longitude; //Read the longitude of the second city in degrees
 
     double lat1rad, lng1rad, lat2rad, lng2rad, u, v;
     lat1rad = convertDegreesToRadians(lat1deg); //Convert the latitude of the first city to degrees
@@ -103,10 +102,10 @@ double computeDistanceBetweenCities(int indexCoord1, int indexCoord2, struct cit
  * @param citiesArray the array of cities given by the input
  * @param numberCities an integer number representing the total amount of cities in the input
  */ 
-void setChromosomeTotalDistance(struct chromosome* chromosome, struct city* citiesArray[], int numberCities){
+void setChromosomeTotalDistance(struct chromosome chromosome, struct city citiesArray[], int numberCities){
 
     double totalDistance = 0;
-    int* citiesPermutation = chromosome->citiesPermutation;//Pointer where chromosome are
+    int* citiesPermutation = chromosome.citiesPermutation;//Pointer where chromosome are
     
     for(int citiesIndex = 1; citiesIndex < numberCities; citiesIndex++){
         
@@ -117,7 +116,7 @@ void setChromosomeTotalDistance(struct chromosome* chromosome, struct city* citi
     //The last trip is from the last city to the first one
     totalDistance += computeDistanceBetweenCities(citiesPermutation[numberCities - 1], citiesPermutation[0], citiesArray); 
 
-    chromosome->totalDistance = totalDistance;//store the total distance in the chromosome structure
+    chromosome.totalDistance = totalDistance;//store the total distance in the chromosome structure
 } //End of the setChromosomeTotalDistance() function
 
 /**
@@ -125,7 +124,7 @@ void setChromosomeTotalDistance(struct chromosome* chromosome, struct city* citi
 *   The function receives, the structure array where the chromosomes are, the 
 *   structure array where the cities are and the total number of chromosomes.
 */
-void setAllChromosomesTotalDistance(struct chromosome* chromosomeArray[], struct city* citiesArray[], int numberCities, int numberOfChromosomes) {
+void setAllChromosomesTotalDistance(struct chromosome chromosomeArray[], struct city citiesArray[], int numberCities, int numberOfChromosomes) {
     
     for(int chromosomeIndex = 0; chromosomeIndex < numberOfChromosomes; chromosomeIndex++){
         
@@ -137,7 +136,7 @@ void setAllChromosomesTotalDistance(struct chromosome* chromosomeArray[], struct
 int main(){
     
     int numberCities = readCities();//store the number of cities in the file
-    struct city* citiesArray[numberCities];//array of structures of city 
+    struct city citiesArray[numberCities];//array of structures of city 
     readInput(citiesArray, numberCities);//read the values of latitude and longitude in the file
     displayCities(citiesArray, numberCities);//Display the cities information.
     
