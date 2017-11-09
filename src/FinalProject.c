@@ -22,9 +22,27 @@ struct city{
 */ 
 struct chromosome {
     
+    int citiesAmount;
     int* citiesPermutation; // a pointer to an integer corresponding to the permutation of the n cities
     double totalDistance; // the total distance traveled
+    int generation;
 };//end of the chromosome struct
+
+void displayChromosome(struct chromosome chromosome){
+
+    printf("\n");
+    printf("citiesAmount = %d\n", chromosome.citiesAmount);
+    printf("citiesPermutation = ");
+
+    for(int i = 0; i < chromosome.citiesAmount; i++)
+        printf("%d ", chromosome.citiesPermutation[i]);
+
+    printf("\n");
+
+    printf("totalDistance = %lf\n", chromosome.totalDistance);
+    printf("generation = %d\n", chromosome.generation);
+    printf("\n");
+}
 
 //Function that reads the input
 void readInput(struct city citiesArray[], int numberCities){
@@ -47,7 +65,8 @@ int readCities(){
 //Function to display the read input
 void displayCities(struct city citiesArray[], int numberCities){
 
-    printf("\n"); //Break line for aesthetics
+    printf("\n");
+    printf("The input is the following:\n\n"); //Break line for aesthetics
 
     for(int i = 0; i < numberCities; i++){
         
@@ -102,10 +121,10 @@ double computeDistanceBetweenCities(int indexCoord1, int indexCoord2, struct cit
  * @param citiesArray the array of cities given by the input
  * @param numberCities an integer number representing the total amount of cities in the input
  */ 
-void setChromosomeTotalDistance(struct chromosome chromosome, struct city citiesArray[], int numberCities){
+void setChromosomeTotalDistance(struct chromosome* ptrChromosome, struct city citiesArray[], int numberCities){
 
     double totalDistance = 0;
-    int* citiesPermutation = chromosome.citiesPermutation;//Pointer where chromosome are
+    int* citiesPermutation = (*ptrChromosome).citiesPermutation;//Pointer where chromosome are
     
     for(int citiesIndex = 1; citiesIndex < numberCities; citiesIndex++){
         
@@ -115,8 +134,7 @@ void setChromosomeTotalDistance(struct chromosome chromosome, struct city cities
 
     //The last trip is from the last city to the first one
     totalDistance += computeDistanceBetweenCities(citiesPermutation[numberCities - 1], citiesPermutation[0], citiesArray); 
-
-    chromosome.totalDistance = totalDistance;//store the total distance in the chromosome structure
+    (*ptrChromosome).totalDistance = totalDistance;//store the total distance in the chromosome structure
 } //End of the setChromosomeTotalDistance() function
 
 /**
@@ -128,9 +146,42 @@ void setAllChromosomesTotalDistance(struct chromosome chromosomeArray[], struct 
     
     for(int chromosomeIndex = 0; chromosomeIndex < numberOfChromosomes; chromosomeIndex++){
         
-        setChromosomeTotalDistance(chromosomeArray[chromosomeIndex], citiesArray, numberCities);
+        setChromosomeTotalDistance(&(chromosomeArray[chromosomeIndex]), citiesArray, numberCities);
     }
 }//end of computeOverallDistance
+
+void shuffle(int *array, int amountOfCities){
+    
+    int i, j, tmp;
+    for(i = amountOfCities - 1; i > 0; i--){
+
+        j = rand()%(i + 1);
+        tmp = array[j];
+        array[j] = array[i];
+        array[i] = tmp;
+    }
+}
+
+int* generateRandomPopulation(int size){
+
+    int* citiesPermutation = malloc(sizeof(int)*size);
+    
+    for(int i = 0; i < size; i++)
+        citiesPermutation[i] = i;
+
+    shuffle(citiesPermutation, size);
+    return citiesPermutation;
+}
+
+void solve(int amountOfCities, struct city citiesArray[]){
+    
+    struct chromosome firstChromosome;
+    firstChromosome.citiesPermutation = generateRandomPopulation(amountOfCities);
+    firstChromosome.citiesAmount = amountOfCities;
+    firstChromosome.generation = 0;
+    setChromosomeTotalDistance(&firstChromosome, citiesArray, amountOfCities);
+    displayChromosome(firstChromosome);
+}
 
 //main function
 int main(){
@@ -139,6 +190,7 @@ int main(){
     struct city citiesArray[numberCities];//array of structures of city 
     readInput(citiesArray, numberCities);//read the values of latitude and longitude in the file
     displayCities(citiesArray, numberCities);//Display the cities information.
+    solve(numberCities, citiesArray);
     
     return 0;
 }//end of the main function
