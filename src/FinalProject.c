@@ -118,7 +118,7 @@ double computeDistanceBetweenCities(int indexCoord1, int indexCoord2, struct cit
 /**
  * Function that sets the total distance traveled using the cities permutation of a given chromosome.
  * 
- * @param chromosome a pointer to a chromosome struct whose total distance traveled we want to calculte
+ * @param ptrChromosome a pointer to a chromosome struct whose total distance traveled we want to calculte
  * @param citiesArray the array of cities given by the input
  * @param numberCities an integer number representing the total amount of cities in the input
  */ 
@@ -154,7 +154,7 @@ void setAllChromosomesTotalDistance(struct chromosome chromosomeArray[], struct 
 //Function to swap to values in an array
 void swap(int* array, int index1, int index2){
 
-    int tmp = array[index2]; 
+    int tmp = array[index2]; //Initialize a temporary variable
     array[index2] = array[index1];
     array[index1] = tmp;
 }
@@ -173,18 +173,35 @@ void shuffle(int *array, int amountOfCities){
     }
 }
 
+/**
+ * Function to generate a random population of a given size by creating an array
+ * with the integers from 0 to size - 1 and shuffling that array.
+ * 
+ * @param size the size of the desired population
+ * @return a pointer to an integer representing the array of the shuffled numbers
+ * from 0 to size - 1.
+ */ 
 int* generateRandomPopulation(int size){
 
     int* citiesPermutation = malloc(sizeof(int)*size);
     
     for(int i = 0; i < size; i++)
-        citiesPermutation[i] = i;
+        citiesPermutation[i] = i; //Assign the values from 0 to n - 1
 
-    shuffle(citiesPermutation, size);
-    return citiesPermutation;
+    shuffle(citiesPermutation, size); //Shuffle the array
+    return citiesPermutation; //Return the array
 }
 
-void solve(int amountOfCities, struct city citiesArray[]){
+/**
+ * Function in which a genetic algorithm will be implemented to solve the TSP.
+ * 
+ * @param amountOfCities the total amount of cities the traveler must travel
+ * @param citiesArray the array of cities in which the coordinates and the id of each city 
+ * are stored.
+ * 
+ * @return bestChromosome the chromosome with the best route for the traveler
+ */ 
+struct chromosome solve(int amountOfCities, struct city citiesArray[]){
     
     struct chromosome firstChromosome;
     firstChromosome.citiesPermutation = generateRandomPopulation(amountOfCities);
@@ -193,7 +210,11 @@ void solve(int amountOfCities, struct city citiesArray[]){
     setChromosomeTotalDistance(&firstChromosome, citiesArray, amountOfCities);
     displayChromosome(firstChromosome);
 
+    /*
+        INSERT LOGIC OF GA HERE        
+    */
 
+    return firstChromosome;
 }
 
 //main function
@@ -203,7 +224,7 @@ int main(){
     struct city citiesArray[numberCities];//array of structures of city 
     readInput(citiesArray, numberCities);//read the values of latitude and longitude in the file
     displayCities(citiesArray, numberCities);//Display the cities information.
-    solve(numberCities, citiesArray);
+    struct chromosome shortestPathChromosome = solve(numberCities, citiesArray);
     
     return 0;
 }//end of the main function
