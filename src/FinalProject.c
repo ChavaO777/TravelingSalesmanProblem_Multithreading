@@ -161,9 +161,6 @@ void swap(int* array, int index1, int index2){
 
 //Implementation of the Fisher-Yates algorithm
 void shuffle(int *array, int amountOfCities){
-    
-    /* initialize random seed: */
-    srand (time(NULL));
 
     int i, j, tmp;
     for(i = amountOfCities - 1; i > 0; i--){
@@ -171,6 +168,21 @@ void shuffle(int *array, int amountOfCities){
         j = rand()%(i + 1); //Pick a random number between 0 and i
         swap(array, i, j); //Swap array[i] and array[j]
     }
+}
+
+/**
+ * Function that returns a 1 if a permutation had already been generated before or a
+ * zero if it is a new permutation
+ * 
+ * @param citiesPermutation the permutation to be checked
+ * @param size the size of the permutation from 0 to (size - 1)
+ * 
+ * @return 1 if the permutation already exists. Else, 0.
+ */ 
+int permutationAlreadyExists(int* citiesPermutation, int size){
+
+    //TO DO: ADD THE LOGIC OF THIS FUNCTION
+    return 0;
 }
 
 /**
@@ -188,8 +200,19 @@ int* generateRandomPopulation(int size){
     for(int i = 0; i < size; i++)
         citiesPermutation[i] = i; //Assign the values from 0 to n - 1
 
-    shuffle(citiesPermutation, size); //Shuffle the array
+    do{
+        shuffle(citiesPermutation, size); //Shuffle the array
+    }while(permutationAlreadyExists(citiesPermutation, size));
+    
     return citiesPermutation; //Return the array
+}
+
+void createChromosome(struct chromosome* ptrChromosome, int amountOfCities, struct city citiesArray[], int generation){
+
+    (*ptrChromosome).citiesPermutation = generateRandomPopulation(amountOfCities);
+    (*ptrChromosome).citiesAmount = amountOfCities;
+    (*ptrChromosome).generation = generation;
+    setChromosomeTotalDistance(ptrChromosome, citiesArray, amountOfCities);
 }
 
 /**
@@ -203,18 +226,24 @@ int* generateRandomPopulation(int size){
  */ 
 struct chromosome solve(int amountOfCities, struct city citiesArray[]){
     
-    struct chromosome firstChromosome;
-    firstChromosome.citiesPermutation = generateRandomPopulation(amountOfCities);
-    firstChromosome.citiesAmount = amountOfCities;
-    firstChromosome.generation = 0;
-    setChromosomeTotalDistance(&firstChromosome, citiesArray, amountOfCities);
-    displayChromosome(firstChromosome);
+    int totalChromosomes = 100;
+    struct chromosome chromosomesArray[totalChromosomes];
+    
+    time_t t;
+
+    for(int i = 0; i < totalChromosomes; i++){
+
+        /* initialize random seed. Make i a parameter. */
+        srand((unsigned) time(&t) + i*i);
+        createChromosome(&(chromosomesArray[i]), amountOfCities, citiesArray, 0);
+        displayChromosome(chromosomesArray[i]);
+    }
 
     /*
         INSERT LOGIC OF GA HERE        
     */
 
-    return firstChromosome;
+    return chromosomesArray[0];
 }
 
 //main function
