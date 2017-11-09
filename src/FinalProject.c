@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <time.h>
 
 #define EARTH_RADIUS_KM 6371 // authalic radius based on/extracted from surface area;
 
@@ -152,6 +153,9 @@ void setAllChromosomesTotalDistance(struct chromosome chromosomeArray[], struct 
 
 void shuffle(int *array, int amountOfCities){
     
+    /* initialize random seed: */
+    srand (time(NULL));
+
     int i, j, tmp;
     for(i = amountOfCities - 1; i > 0; i--){
 
@@ -181,6 +185,8 @@ void solve(int amountOfCities, struct city citiesArray[]){
     firstChromosome.generation = 0;
     setChromosomeTotalDistance(&firstChromosome, citiesArray, amountOfCities);
     displayChromosome(firstChromosome);
+
+
 }
 
 //main function
