@@ -29,6 +29,14 @@ struct chromosome {
     int generation;
 };//end of the chromosome struct
 
+int cmpfunc(const void *ptrChromo1, const void *ptrChromo2){
+
+    const struct chromosome* ptrChromosome1 = (struct chromosome*) ptrChromo1;
+    const struct chromosome* ptrChromosome2 = (struct chromosome*) ptrChromo2;
+
+    return (*ptrChromosome1).totalDistance - (*ptrChromosome2).totalDistance;
+} 
+
 void displayChromosome(struct chromosome chromosome){
 
     printf("\n");
@@ -207,6 +215,15 @@ int* generateRandomPermutation(int size){
     return citiesPermutation; //Return the array
 }
 
+struct chromosome createChildChromosome(struct chromosome c1, struct chromosome c2){
+
+    /*
+        INSERT LOGIC ABOUT MERGING CHROMOSOMES HERE
+    */
+
+    return c1;  
+}
+
 /**
  * Function to create a chromosome given the amount of cities its permutation requires, the cities array
  * to calculate the total distance traveled and the generation of the chromosome.
@@ -246,13 +263,43 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
         /* initialize random seed. Make i a parameter. */
         srand((unsigned) time(&t) + i*i);
         createChromosome(&(chromosomesArray[i]), amountOfCities, citiesArray, 0);
-        displayChromosome(chromosomesArray[i]);
+        // displayChromosome(chromosomesArray[i]);
     }
 
     /*
         INSERT LOGIC OF GA HERE        
     */
 
+    int totalGenerations = 100;
+    int bestToChromosomesToBeTaken = totalChromosomes/4;
+
+    for(int i = 0; i < totalGenerations; i++){
+
+        //Sort the array of chromosomes
+        qsort(chromosomesArray, totalChromosomes, sizeof(struct chromosome), cmpfunc);
+        
+        /*  
+            Pick the best 25 chromosomes and then make 75 new chromosomes with the following pairing schemas:
+
+                1. The i-th chromosome with the (i + 1)-th chromosome
+                2. The i-th chromosome with the (i + 2)-th chromosome
+                3. The i-th chromosome with the (i + 3)-th chromosome
+        */
+        
+        for(int k = 1; k <= 3; k++){
+
+            for(int j = 0; j < 25; j++){
+                
+                //Create child chromosomes for the indices between (bestToChromosomesToBeTaken) and (totalChromosomes - 1), inclusive
+                chromosomesArray[k*bestToChromosomesToBeTaken + j] = createChildChromosome(chromosomesArray[j], chromosomesArray[j + k]);
+            }
+        }
+    }
+
+    //Sort the array once last time
+    qsort(chromosomesArray, totalChromosomes, sizeof(struct chromosome), cmpfunc);
+
+    //Return the first element of the array after being sorted, i.e. the chromosome with the least distance
     return chromosomesArray[0];
 }
 
@@ -264,6 +311,7 @@ int main(){
     readInput(citiesArray, numberCities);//read the values of latitude and longitude in the file
     displayCities(citiesArray, numberCities);//Display the cities information.
     struct chromosome shortestPathChromosome = solve(numberCities, citiesArray);
+    displayChromosome(shortestPathChromosome);
     
     return 0;
 }//end of the main function
