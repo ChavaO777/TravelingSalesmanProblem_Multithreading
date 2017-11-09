@@ -186,14 +186,14 @@ int permutationAlreadyExists(int* citiesPermutation, int size){
 }
 
 /**
- * Function to generate a random population of a given size by creating an array
+ * Function to generate a random permutation of a given size by creating an array
  * with the integers from 0 to size - 1 and shuffling that array.
  * 
- * @param size the size of the desired population
+ * @param size the size of the desired permutation
  * @return a pointer to an integer representing the array of the shuffled numbers
  * from 0 to size - 1.
  */ 
-int* generateRandomPopulation(int size){
+int* generateRandomPermutation(int size){
 
     int* citiesPermutation = malloc(sizeof(int)*size);
     
