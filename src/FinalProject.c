@@ -219,7 +219,7 @@ int* generateRandomPermutation(int size){
  */ 
 void createChromosome(struct chromosome* ptrChromosome, int amountOfCities, struct city citiesArray[], int generation){
 
-    (*ptrChromosome).citiesPermutation = generateRandomPopulation(amountOfCities); //Set the population
+    (*ptrChromosome).citiesPermutation = generateRandomPermutation(amountOfCities); //Set the population
     (*ptrChromosome).citiesAmount = amountOfCities; //Set the amout of cities
     (*ptrChromosome).generation = generation; //Set the generation 
     setChromosomeTotalDistance(ptrChromosome, citiesArray, amountOfCities); //Set the total distance traveled
