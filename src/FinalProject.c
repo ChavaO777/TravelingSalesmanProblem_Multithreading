@@ -151,6 +151,15 @@ void setAllChromosomesTotalDistance(struct chromosome chromosomeArray[], struct 
     }
 }//end of computeOverallDistance
 
+//Function to swap to values in an array
+void swap(int* array, int index1, int index2){
+
+    int tmp = array[index2]; 
+    array[index2] = array[index1];
+    array[index1] = tmp;
+}
+
+//Implementation of the Fisher-Yates algorithm
 void shuffle(int *array, int amountOfCities){
     
     /* initialize random seed: */
@@ -159,10 +168,8 @@ void shuffle(int *array, int amountOfCities){
     int i, j, tmp;
     for(i = amountOfCities - 1; i > 0; i--){
 
-        j = rand()%(i + 1);
-        tmp = array[j];
-        array[j] = array[i];
-        array[i] = tmp;
+        j = rand()%(i + 1); //Pick a random number between 0 and i
+        swap(array, i, j); //Swap array[i] and array[j]
     }
 }
 
