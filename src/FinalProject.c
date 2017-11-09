@@ -291,7 +291,7 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
             for(int j = 0; j < 25; j++){
                 
                 //Create child chromosomes for the indices between (bestToChromosomesToBeTaken) and (totalChromosomes - 1), inclusive
-                chromosomesArray[k*bestToChromosomesToBeTaken + j] = createChildChromosome(chromosomesArray[j], chromosomesArray[j + k]);
+                chromosomesArray[k*bestToChromosomesToBeTaken + j] = createChildChromosome(chromosomesArray[j], chromosomesArray[(j + k)%totalChromosomes]);
             }
         }
     }
