@@ -207,12 +207,22 @@ int* generateRandomPermutation(int size){
     return citiesPermutation; //Return the array
 }
 
+/**
+ * Function to create a chromosome given the amount of cities its permutation requires, the cities array
+ * to calculate the total distance traveled and the generation of the chromosome.
+ * 
+ * @param ptrChromosome a pointer to the chrosome whose attributes are to be initialized
+ * @param amountOfCities the amount of cities that the chromosome's permutation requires
+ * @param citiesArray the array of cities in which the coordinates and the id of each city 
+ * are stored.
+ * @generation the generation of the chromosome since the start of the program's execution
+ */ 
 void createChromosome(struct chromosome* ptrChromosome, int amountOfCities, struct city citiesArray[], int generation){
 
-    (*ptrChromosome).citiesPermutation = generateRandomPopulation(amountOfCities);
-    (*ptrChromosome).citiesAmount = amountOfCities;
-    (*ptrChromosome).generation = generation;
-    setChromosomeTotalDistance(ptrChromosome, citiesArray, amountOfCities);
+    (*ptrChromosome).citiesPermutation = generateRandomPopulation(amountOfCities); //Set the population
+    (*ptrChromosome).citiesAmount = amountOfCities; //Set the amout of cities
+    (*ptrChromosome).generation = generation; //Set the generation 
+    setChromosomeTotalDistance(ptrChromosome, citiesArray, amountOfCities); //Set the total distance traveled
 }
 
 /**
