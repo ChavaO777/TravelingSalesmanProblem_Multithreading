@@ -215,13 +215,12 @@ int* generateRandomPermutation(int size){
     return citiesPermutation; //Return the array
 }
 
-struct chromosome createChildChromosome(struct chromosome c1, struct chromosome c2){
+int* createPermutationFromParents(struct chromosome c1, struct chromosome c2){
 
     /*
         INSERT LOGIC ABOUT MERGING CHROMOSOMES HERE
     */
-
-    return c1;  
+    return c1.citiesPermutation;
 }
 
 /**
@@ -234,13 +233,26 @@ struct chromosome createChildChromosome(struct chromosome c1, struct chromosome 
  * are stored.
  * @generation the generation of the chromosome since the start of the program's execution
  */ 
-void createChromosome(struct chromosome* ptrChromosome, int amountOfCities, struct city citiesArray[], int generation){
+void createRandomChromosome(struct chromosome* ptrChromosome, int amountOfCities, struct city citiesArray[], int generation){
 
     (*ptrChromosome).citiesPermutation = generateRandomPermutation(amountOfCities); //Set the population
     (*ptrChromosome).citiesAmount = amountOfCities; //Set the amout of cities
     (*ptrChromosome).generation = generation; //Set the generation 
     setChromosomeTotalDistance(ptrChromosome, citiesArray, amountOfCities); //Set the total distance traveled
+    (*ptrChromosome).totalDistance = -generation;
 }
+
+struct chromosome createChildChromosome(struct chromosome c1, struct chromosome c2, int generation, int amountOfCities, struct city citiesArray[]){
+    
+    struct chromosome childChromosome;
+    childChromosome.citiesPermutation = createPermutationFromParents(c1, c2);
+    childChromosome.citiesAmount = c1.citiesAmount;
+    childChromosome.generation = generation;
+    setChromosomeTotalDistance(&childChromosome, citiesArray, amountOfCities); //Set the total distance traveled
+
+    return c1;  
+}
+
 
 /**
  * Function in which a genetic algorithm will be implemented to solve the TSP.
@@ -262,7 +274,7 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
 
         /* initialize random seed. Make i a parameter. */
         srand((unsigned) time(&t) + i*i);
-        createChromosome(&(chromosomesArray[i]), amountOfCities, citiesArray, 0);
+        createRandomChromosome(&(chromosomesArray[i]), amountOfCities, citiesArray, 0);
         // displayChromosome(chromosomesArray[i]);
     }
 
@@ -279,7 +291,7 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
         qsort(chromosomesArray, totalChromosomes, sizeof(struct chromosome), cmpfunc);
         
         /*  
-            Pick the best 25 chromosomes and then make 75 new chromosomes with the following pairing schemas:
+            Pick the best bestToChromosomesToBeTaken chromosomes and then make (totalChromosomes - bestToChromosomesToBeTaken) new chromosomes with the following pairing schemas:
 
                 1. The i-th chromosome with the (i + 1)-th chromosome
                 2. The i-th chromosome with the (i + 2)-th chromosome
@@ -291,10 +303,16 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
             for(int j = 0; j < 25; j++){
                 
                 //Create child chromosomes for the indices between (bestToChromosomesToBeTaken) and (totalChromosomes - 1), inclusive
-                chromosomesArray[k*bestToChromosomesToBeTaken + j] = createChildChromosome(chromosomesArray[j], chromosomesArray[(j + k)%totalChromosomes]);
+                chromosomesArray[k*bestToChromosomesToBeTaken + j] = createChildChromosome(chromosomesArray[j], chromosomesArray[(j + k)%totalChromosomes], i, amountOfCities, citiesArray);
             }
         }
     }
+
+    // for(int i = 0; i < totalChromosomes; i++){
+
+    //     printf("i = %d", i);
+    //     displayChromosome(chromosomesArray[i]);
+    // }
 
     //Sort the array once last time
     qsort(chromosomesArray, totalChromosomes, sizeof(struct chromosome), cmpfunc);
