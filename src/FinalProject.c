@@ -274,7 +274,6 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
         /* initialize random seed. Make i a parameter. */
         srand((unsigned) time(&t) + i*i);
         createRandomChromosome(&(chromosomesArray[i]), amountOfCities, citiesArray, 0);
-        // displayChromosome(chromosomesArray[i]);
     }
 
     /*
@@ -307,13 +306,7 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
         }
     }
 
-    // for(int i = 0; i < totalChromosomes; i++){
-
-    //     printf("i = %d", i);
-    //     displayChromosome(chromosomesArray[i]);
-    // }
-
-    //Sort the array once last time
+    //Sort the array one last time
     qsort(chromosomesArray, totalChromosomes, sizeof(struct chromosome), cmpfunc);
 
     //Return the first element of the array after being sorted, i.e. the chromosome with the least distance
