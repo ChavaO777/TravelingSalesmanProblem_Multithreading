@@ -132,7 +132,7 @@ double computeDistanceBetweenCities(int indexCoord1, int indexCoord2, struct cit
  */
 void setChromosomeTotalDistance(struct chromosome* ptrChromosome, struct city citiesArray[], int numberCities){
 
-    double totalDistance = 0;
+    double totalDistance = 0.0;
     int* citiesPermutation = (*ptrChromosome).citiesPermutation;//Pointer where chromosome are
 
     for(int citiesIndex = 1; citiesIndex < numberCities; citiesIndex++){
@@ -234,11 +234,10 @@ int* createPermutationFromParents(struct chromosome c1, struct chromosome c2){
  */ 
 void createRandomChromosome(struct chromosome* ptrChromosome, int amountOfCities, struct city citiesArray[], int generation){
 
-  //  (*ptrChromosome).citiesPermutation = generateRandomPermutation(amountOfCities); //Set the population
+    (*ptrChromosome).citiesPermutation = generateRandomPermutation(amountOfCities); //Set the population
     (*ptrChromosome).citiesAmount = amountOfCities; //Set the amout of cities
     (*ptrChromosome).generation = generation; //Set the generation
     setChromosomeTotalDistance(ptrChromosome, citiesArray, amountOfCities); //Set the total distance traveled
-    (*ptrChromosome).totalDistance = -generation;
 }
 
 struct chromosome createChildChromosome(struct chromosome c1, struct chromosome c2, int generation, int amountOfCities, struct city citiesArray[]){
@@ -249,7 +248,7 @@ struct chromosome createChildChromosome(struct chromosome c1, struct chromosome 
     childChromosome.generation = generation;
     setChromosomeTotalDistance(&childChromosome, citiesArray, amountOfCities); //Set the total distance traveled
 
-    return c1;  
+    return childChromosome;  
 }
 
 
