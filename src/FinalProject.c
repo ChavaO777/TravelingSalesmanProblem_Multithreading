@@ -168,16 +168,14 @@ void swap(int* array, int index1, int index2){
 }
 
 //Implementation of the Fisher-Yates algorithm
-static int rand_int(int n)
-{
-  int limit = RAND_MAX - RAND_MAX % n;
-  int rnd;
+void shuffle(int *array, int amountOfCities){
 
-  do {
-    rnd = rand();
-  }
-  while(rnd >= limit);
-  return rnd %n;
+    int i, j, tmp;
+    for(i = amountOfCities - 1; i > 0; i--){
+
+        j = rand()%(i + 1); //Pick a random number between 0 and i
+        swap(array, i, j); //Swap array[i] and array[j]
+    }
 }
 
 /**
@@ -189,74 +187,32 @@ static int rand_int(int n)
  *
  * @return 1 if the permutation already exists. Else, 0.
  */
- int permutationAlreadyExists(int *newPopulation,int ** previousPopulations, int numberOfCities, int filas,struct chromosome chromosomeArray[]){
+ int permutationAlreadyExists(int* citiesPermutation, int size){
 
-   int i = 0;
-   int j = 0;
-   int checksum = 0;
-   int checktrue = 50;
-   //Si el arreglo esta vacio, lo llena con la primera permutacion
-
-   if((*(*previousPopulations+0)+0) == NULL){
-
-     for(i = 0; i < numberOfCities; i++){
-
-       checktrue = newPopulation[i];
-       previousPopulations[0][i] = checktrue;
-
-     }
-     chromosomeArray[0].citiesPermutation = previousPopulations[0];
-     return filas;
-   }
-
-   //Reasigna el tamaño del arreglo y le agrega filas
-
-
-   filas++;
-
-   for(i = 0; i < numberOfCities; i++){
-
-     for(j = 0; j < filas - 1; j++){
-
-       if(previousPopulations[j][i] != newPopulation[i]){
-
-         checksum++;
-       }
-     }
-   }
-
-   if(checksum != 0){
-
-     for(i = 0; i < numberOfCities; i++){
-
-       previousPopulations[filas - 1][i] = newPopulation[i];
-
-     }
-     chromosomeArray[filas-1].citiesPermutation = previousPopulations[filas-1];
-   }
-
-   return filas;
+   return 0;
  }
 
 /**
  * Function to generate a random permutation of a given size by creating an array
  * with the integers from 0 to size - 1 and shuffling that array.
- *
+ * 
  * @param size the size of the desired permutation
  * @return a pointer to an integer representing the array of the shuffled numbers
  * from 0 to size - 1.
- */
- void generateRandomPermutation(int *array, int amountOfCities)
- {
-   int i, j, tmp;
-   for (i=amountOfCities-1;i>0;i--)
-   {
-     j = rand_int(i+1);
-     tmp = array[j];
-     array[j] = array[i];
-     array[i] = tmp;
-   }
- }
+ */ 
+int* generateRandomPermutation(int size){
+
+    int* citiesPermutation = malloc(sizeof(int)*size);
+    
+    for(int i = 0; i < size; i++)
+        citiesPermutation[i] = i; //Assign the values from 0 to n - 1
+
+    do{
+        shuffle(citiesPermutation, size); //Shuffle the array
+    }while(permutationAlreadyExists(citiesPermutation, size));
+    
+    return citiesPermutation; //Return the array
+}
 
 int* createPermutationFromParents(struct chromosome c1, struct chromosome c2){
 
@@ -366,25 +322,9 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
 
 //main function
 int main(){
-    int filas = 1;
-    int i;
+
     int numberCities = readCities();//store the number of cities in the file
     struct city citiesArray[numberCities];//array of structures of city
-    struct chromosome chromosomeArray[10000];
-    int *numbers; //Es la permutacion
-    int **previousPopulations; //arreglo permutaciones
-    previousPopulations = (int **)malloc(10000 * sizeof(int*));
-    for(i=0;i<10000;i++)
-      previousPopulations[i] = (int*)malloc(numberCities * sizeof(int));
-
-    numbers = malloc(numberCities * sizeof(int));
-    for(int i = 0; i < numberCities; i++)
-      numbers[i] = i; //Fillas array with numbers in order
-    for(i=0;i<10000;i++)
-    {
-      generateRandomPermutation(numbers,numberCities); //makes random array
-      filas = permutationAlreadyExists(numbers,previousPopulations,numberCities,filas,chromosomeArray); //stores array
-    }
     readInput(citiesArray, numberCities);//read the values of latitude and longitude in the file
     displayCities(citiesArray, numberCities);//Display the cities information.
     struct chromosome shortestPathChromosome = solve(numberCities, citiesArray);
