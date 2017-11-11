@@ -519,8 +519,14 @@ int* createPermutationFromParents(struct chromosome c1, struct chromosome c2){
     //Create the cross over
     int* childPermutation = performOrderedCrossover(c1.citiesAmount, c1.citiesPermutation, c2.citiesPermutation, c1.generation*c2.generation + primes[rand()%15]);
     
-    //Perform a mutation in the array returned by the crossover
-    performMutation(c1.citiesAmount, childPermutation, c1.generation*c2.generation + primes[rand()%15]);
+    //Total mutations to be performed
+    const int totalMutations = 2;
+
+    //Perform mutations in the array returned by the crossover
+    for(int i = 0; i < totalMutations; i++){
+
+        performMutation(c1.citiesAmount, childPermutation, c1.generation*c2.generation + primes[rand()%15]);
+    }
     
     return childPermutation;
 }
@@ -674,7 +680,7 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
     qsort(chromosomesArray, totalChromosomes, sizeof(struct chromosome), cmpfunc);
 
     //Display the final chromosome array
-    // displayChromosomesArray(totalChromosomes, chromosomesArray);
+    displayChromosomesArray(totalChromosomes, chromosomesArray);
 
     //Return the first element of the array after being sorted, i.e. the chromosome with the least distance
     return chromosomesArray[0];
