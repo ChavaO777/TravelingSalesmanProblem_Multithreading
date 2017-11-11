@@ -328,6 +328,26 @@ int* orderedCrossover(int size, int* arr1, int* arr2, int seedParameter){
     return newArr;
 }
 
+void performMutation(int size, int* arr, int seedParameter){
+
+    srand(time(NULL));
+    seedParameter += rand()%1000;
+
+    time_t t;
+    /* initialize random seed. Make i a parameter. */
+    srand((unsigned) time(&t) + seedParameter*seedParameter);
+
+    int index1 = -1;
+    int index2 = -1;
+
+    do{
+        index1 = rand()%size;
+        index2 = rand()%size;
+    }while(index1 == index2);
+
+    swap(arr, index1, index2);
+}
+
 int* createPermutationFromParents(struct chromosome c1, struct chromosome c2){
 
     /*
@@ -336,7 +356,10 @@ int* createPermutationFromParents(struct chromosome c1, struct chromosome c2){
 
     int primes[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47};
 
-    return orderedCrossover(c1.citiesAmount, c1.citiesPermutation, c2.citiesPermutation, c1.generation*c2.generation + primes[rand()%15]);
+    int* childPermutation = orderedCrossover(c1.citiesAmount, c1.citiesPermutation, c2.citiesPermutation, c1.generation*c2.generation + primes[rand()%15]);
+    performMutation(c1.citiesAmount, childPermutation, c1.generation*c2.generation + primes[rand()%15]);
+    
+    return childPermutation;
 }
 
 int* setToNegativesArray(int size){
