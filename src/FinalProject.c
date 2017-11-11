@@ -438,14 +438,19 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
             for(int j = 0; j < 25; j++){
 
                 // Create child chromosomes for the indices between (bestToChromosomesToBeTaken) and (totalChromosomes - 1), inclusive
-                chromosomesArray[k*bestToChromosomesToBeTaken + j] = createChildChromosome(chromosomesArray[j], chromosomesArray[(j + k)%totalChromosomes], i, amountOfCities, citiesArray);
+                printf("chromosomesArray[%d] -> ", j);
+                displayArray(chromosomesArray[j].citiesPermutation, chromosomesArray[j].citiesAmount);
+
+                printf("chromosomesArray[%d] -> ", (j + k)%bestToChromosomesToBeTaken);
+                displayArray(chromosomesArray[(j + k)%totalChromosomes].citiesPermutation, chromosomesArray[(j + k)%bestToChromosomesToBeTaken].citiesAmount);
+                chromosomesArray[k*bestToChromosomesToBeTaken + j] = createChildChromosome(chromosomesArray[j], chromosomesArray[(j + k)%bestToChromosomesToBeTaken], i, amountOfCities, citiesArray);
             }
         }
     }
 
     //Sort the array one last time
     qsort(chromosomesArray, totalChromosomes, sizeof(struct chromosome), cmpfunc);
-    
+
     displayChromosomesArray(totalChromosomes, chromosomesArray);
 
     //Return the first element of the array after being sorted, i.e. the chromosome with the least distance
