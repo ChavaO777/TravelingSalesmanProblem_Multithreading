@@ -181,19 +181,6 @@ void setChromosomeTotalDistance(struct chromosome* ptrChromosome, struct city ci
     (*ptrChromosome).totalDistance = totalDistance;//store the total distance in the chromosome structure
 } //End of the setChromosomeTotalDistance() function
 
-/**
-*   Function to calculate the total distance traveled by all chromosomes in the array.
-*   The function receives, the structure array where the chromosomes are, the
-*   structure array where the cities are and the total number of chromosomes.
-*/
-void setAllChromosomesTotalDistance(struct chromosome chromosomeArray[], struct city citiesArray[], int numberCities, int numberOfChromosomes) {
-
-    for(int chromosomeIndex = 0; chromosomeIndex < numberOfChromosomes; chromosomeIndex++){
-
-        setChromosomeTotalDistance(&(chromosomeArray[chromosomeIndex]), citiesArray, numberCities);
-    }
-}//end of computeOverallDistance
-
 //Function to swap to values in an array
 void swap(int* array, int index1, int index2){
 
