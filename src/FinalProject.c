@@ -29,8 +29,15 @@ struct chromosome {
     int generation;
 };//end of the chromosome struct
 
+/**
+ * Function to compute the score of a chromosome.
+ * 
+ * @param chromosome the chromosome whose score is to be computed
+ * @return the score of the chromosome
+ */ 
 double computeChromosomeScore(struct chromosome chromosome){
 
+    // The score of the chromosome is only its total distance; the lower, the better
     return chromosome.totalDistance;
 }
 
@@ -40,17 +47,26 @@ double computeChromosomeScore(struct chromosome chromosome){
  */ 
 int cmpfunc(const void *ptrChromo1, const void *ptrChromo2){
 
+    //Get the first chromosome
     const struct chromosome* ptrChromosome1 = (struct chromosome*) ptrChromo1;
+    //Get the second chromosome
     const struct chromosome* ptrChromosome2 = (struct chromosome*) ptrChromo2;
+    // Compute the subtraction of their scores
     return computeChromosomeScore(*ptrChromosome1) - computeChromosomeScore(*ptrChromosome2);
 }
 
+/**
+ *  Function to display the information of a given chromosome
+ * 
+ *  @param chromosome the chromosome whose information is to be displayed
+ */
 void displayChromosome(struct chromosome chromosome){
     
     printf("\n");
     printf("citiesAmount = %d\n", chromosome.citiesAmount);
     printf("citiesPermutation = ");
 
+    //In case the permutation is NULL
     if(chromosome.citiesPermutation == NULL){
 
         printf("The permutation is NULL.\n");
@@ -58,6 +74,7 @@ void displayChromosome(struct chromosome chromosome){
 
     else{
 
+        //Print the whole permutation of the cities
         for(int i = 0; i < chromosome.citiesAmount; i++)
             printf("%d ", chromosome.citiesPermutation[i]);
 
@@ -74,8 +91,10 @@ void readInput(struct city citiesArray[], int numberCities){
 
     for(int i = 0; i < numberCities; i++){
 
-        citiesArray[i].id = i; //Set the id of the city
-        scanf("%lf %lf", &citiesArray[i].latitude, &citiesArray[i].longitude); //Read the city's latitude and longitude
+        //Set the id of the city
+        citiesArray[i].id = i; 
+        //Read the city's latitude and longitude
+        scanf("%lf %lf", &citiesArray[i].latitude, &citiesArray[i].longitude);
     }
 }//end of the readInput function
 
@@ -183,34 +202,57 @@ void swap(int* array, int index1, int index2){
     array[index1] = tmp;
 }
 
-//Implementation of the Fisher-Yates algorithm
-void shuffle(int *array, int amountOfCities, int seedParameter){
+/**Implementation of the Fisher-Yates algorithm to shuffle an array
+ * 
+ * @param array the array that is to be shuffled
+ * @param size the size of the array
+ * @param seedParameter the parameter for initializing the random seed
+ */ 
+void shuffle(int *array, int size, int seedParameter){
 
     time_t t;
     /* initialize random seed. Make i a parameter. */
     srand((unsigned) time(&t) + seedParameter*seedParameter);
+
     int i, j, tmp;
-    for(i = amountOfCities - 1; i > 0; i--){
+    for(i = size - 1; i > 0; i--){
 
         j = rand()%(i + 1); //Pick a random number between 0 and i
         swap(array, i, j); //Swap array[i] and array[j]
     }
 }
 
+/**
+ *  Function to display an array
+ *  
+ *  @param arr the array to be displayed
+ *  @size the size of the array
+ */ 
 void displayArray(int* arr, int size){
 
+    //Check if the array is NULL
     if(arr == NULL){
 
         printf("Null array!\n");
         return;
     }
 
+    //Print the whole array
     for(int i = 0; i < size; i++)
         printf("%d ", *(arr + i));
 
     printf("\n");
 }
 
+/**
+ *  Function to determine if to permutations are equal
+ *  
+ *  @param permutation1 the first permutation to be compared
+ *  @param permutation2 the second permutation to be compared
+ *  @param the size of the permutations
+ * 
+ *  @return 1 if the permutations are equal. 0, otherwise.
+ */ 
 int areEqualPermutations(int *permutation1, int* permutation2, int size){   
 
     if(permutation1 == NULL || permutation2 == NULL)
@@ -218,7 +260,7 @@ int areEqualPermutations(int *permutation1, int* permutation2, int size){
 
     for(int i = 0; i < size; i++){ //Iterate through the whole permutations
 
-        if(permutation1[i] != permutation2[i]) //If there is a mismatch, they're not equal{
+        if(permutation1[i] != permutation2[i]) //If there is a mismatch, then they're not equal
             return 0;
     }
 
@@ -231,6 +273,8 @@ int areEqualPermutations(int *permutation1, int* permutation2, int size){
  *
  * @param citiesPermutation the permutation to be checked
  * @param size the size of the permutation from 0 to (size - 1)
+ * @param totalChromosomes the amount of chromosomes that are being stored
+ * @param chromosomesArray the array of chromosomes we currently have
  *
  * @return 1 if the permutation already exists. Else, 0.
  */
@@ -238,16 +282,19 @@ int areEqualPermutations(int *permutation1, int* permutation2, int size){
 
     for(int i = 0; i < totalChromosomes; i++){
 
+        //If the current permutation is NULL, just skip it
         if(chromosomesArray[i].citiesPermutation == NULL){
 
             continue;
         }
 
+        //If they're equal, then the permutation already exists
         if(areEqualPermutations(citiesPermutation, chromosomesArray[i].citiesPermutation, size))
             return 1;
     }
-   
-   return 0;
+    
+    //In case the permutation didn't exist yet
+    return 0;
  }
 
 /**
@@ -274,6 +321,15 @@ int* generateRandomPermutation(int size, int seedParameter, int totalChromosomes
     return citiesPermutation; //Return the array
 }
 
+/**
+ *  Function to determine if a given value exists in an array
+ *  
+ *  @param size the size of the array
+ *  @param value the value we're looking for
+ *  @param array the array in which we're going to look for the value
+ * 
+ *  @return 1 in case the value exists. Else, 0.
+ */ 
 int valueExistsInArray(int size, int value, int* array){
 
     for(int i = 0; i < size; i++)
@@ -283,89 +339,204 @@ int valueExistsInArray(int size, int value, int* array){
     return 0;
 }
 
-int indexWasFilledBefore(int index, int leftSubsetIndex, int rightSubsetIndex){
+/**
+ * Function to determine if a given value is in a given range
+ * 
+ * @param value the value to be checked
+ * @param loValue the minimum value of the range, inclusive
+ * @param hiValue the maximum value of the range, inclusive
+ * 
+ * @return 1 in case the value is in range. Else, 0.
+ */ 
+int isInRange(int value, int loValue, int hiValue){
 
-    return leftSubsetIndex <= index && index <= rightSubsetIndex;
+    return loValue <= value && value <= hiValue;
 }
 
-// Idea taken from: http://www.theprojectspot.com/tutorial-post/applying-a-genetic-algorithm-to-the-travelling-salesman-problem/5
-int* orderedCrossover(int size, int* arr1, int* arr2, int seedParameter){
+/**
+ * Function to pass a subset of the values of a given array directly
+ * 
+ * @param size the size of the array
+ * @param newArr the new array in which the values are going to be assigned
+ * @param leftIndex the first index for the copy procedure
+ * @param rightIndex the last index for the copy procedure
+ * @param parentArr the array from which the values are being passed to the new array
+ */ 
+void passSomeValuesDirectly(int size, int* newArr, int leftIndex, int rightIndex, int* parentArr){
 
-    srand(time(NULL));
-    seedParameter += rand()%1000;
-
-    time_t t;
-    /* initialize random seed. Make i a parameter. */
-    srand((unsigned) time(&t) + seedParameter*seedParameter);
-
-    int arr1SubsetLeftIndex = rand()%(size/2);
-    int arr1SubsetRightIndex = arr1SubsetLeftIndex + rand()%(size/2);
-
-    int* newArr = malloc(sizeof(int)*size);
-
+    // Initialize the new array with arr1's values in the picked range and -1's elswhere
     for(int i = 0; i < size; i++){
 
-        //Just pass this value to the new array
-        if(arr1SubsetLeftIndex <= i && i <= arr1SubsetRightIndex)
-            newArr[i] = arr1[i];
+        //If the index is in range, just pass this value form arr1 to the new array
+        if(isInRange(i, leftIndex, rightIndex))
+            newArr[i] = parentArr[i];
 
         else //Initialize with a fake negative value
             newArr[i] = -1; 
     }
-
-    int arr2Index = 0;
-    for(int i = 0; i < size; i++){
-
-        if(indexWasFilledBefore(i, arr1SubsetLeftIndex, arr1SubsetRightIndex))
-            continue;
-
-        while(arr2Index < size && valueExistsInArray(size, arr2[arr2Index], newArr))
-            arr2Index++;
-
-        newArr[i] = arr2[arr2Index];
-    }
-
-    return newArr;
 }
 
-void performMutation(int size, int* arr, int seedParameter){
+/**
+ * Function to pass the remaining required values from a parent array to a new array
+ * 
+ * @param size the size of the array
+ * @param newArr the new array in which the values are going to be assigned
+ * @param leftIndex the first index of the range that has to be avoided
+ * @param rightIndex the last index of the range that has to be avoided
+ * @param parentArr the array from which the values are being passed to the new array
+ */ 
+void passTheRestOfTheValues(int size, int* newArr, int leftIndex, int rightIndex, int* parentArr){
 
+    //Index of parentArr
+    int parentArrIndex = 0;
+    for(int i = 0; i < size; i++){
+
+        //If the value was already set, just skip this index
+        if(isInRange(i, leftIndex, rightIndex))
+            continue;
+
+        //While the current value of parentArr exists in the new array, move to the right 
+        while(parentArrIndex < size && valueExistsInArray(size, parentArr[parentArrIndex], newArr))
+            parentArrIndex++;
+
+        //Assign this value to the i-th index of the new array
+        newArr[i] = parentArr[parentArrIndex];
+    }
+}
+
+/**
+ * Function to pick a random index range. Both indices could be equal,
+ * thus generating a range of size 1
+ * 
+ * @param ptrInd1 a pointer to the first index
+ * @param ptrInd2 a pointer to the second index
+ * @param size the maximum size of the range
+ * @param seedParameter the parameter for initializing the random seed
+ */ 
+void pickRandomIndexRange(int* ptrInd1, int* ptrInd2, int size, int seedParameter){
+
+    /* initialize random seed.*/
     srand(time(NULL));
     seedParameter += rand()%1000;
 
     time_t t;
-    /* initialize random seed. Make i a parameter. */
+    /* initialize random seed. Use the seedParameter. */
     srand((unsigned) time(&t) + seedParameter*seedParameter);
 
-    int index1 = -1;
-    int index2 = -1;
+    //Pick an index in arr1
+    *ptrInd1 = rand()%(size/2);
+    //Pick another index in arr1 which is to the right of the first picked index
+    *ptrInd2 = (*ptrInd1) + rand()%(size/2);
+}
+
+/**
+ * Function to pick two different indices in a given range
+ * 
+ * @param ptrInd1 a pointer to the first index
+ * @param ptrInd2 a pointer to the second index
+ * @param size the maximum size of the range
+ * @param seedParameter the parameter for initializing the random seed
+ */ 
+void pickRandomDifferentIndicesInRange(int* ptrInd1, int* ptrInd2, int size, int seedParameter){
+
+    /* initialize random seed.*/
+    srand(time(NULL));
+    //Add to the seedParameter a random value
+    seedParameter += rand()%1000;
+
+    time_t t;
+    /* initialize random seed. Use the parameter. */
+    srand((unsigned) time(&t) + seedParameter*seedParameter);
 
     do{
-        index1 = rand()%size;
-        index2 = rand()%size;
-    }while(index1 == index2);
+        //Pick the first index
+        *ptrInd1 = rand()%size;
+        //Pick the second index
+        *ptrInd2 = rand()%size;
+    }while(*ptrInd1 == *ptrInd2); //Cycle while they're equal
+}
 
+// Idea taken from: http://www.theprojectspot.com/tutorial-post/applying-a-genetic-algorithm-to-the-travelling-salesman-problem/5
+/**
+ * Function to perform an ordered crossover between two arrays
+ * 
+ * @param size the size of the arrays
+ * @param arr1 the first array 
+ * @param arr2 the second array
+ * @param seedParameter the parameter for initializing the random seed
+ * 
+ * @return a new array which is a child of arr1 and arr2 after the crossover has been made
+ */ 
+int* performOrderedCrossover(int size, int* arr1, int* arr2, int seedParameter){
+
+    //Declare variables for the indices
+    int arr1SubsetLeftIndex, arr1SubsetRightIndex;
+    //Assign values to those indices
+    pickRandomIndexRange(&arr1SubsetLeftIndex, &arr1SubsetRightIndex, size, seedParameter);
+
+    //Create a new array of size "size".
+    int* newArr = malloc(sizeof(int)*size);
+
+    //Pass some values directly from arr1
+    passSomeValuesDirectly(size, newArr, arr1SubsetLeftIndex, arr1SubsetRightIndex, arr1);
+    //Pass the remaining values from arr2
+    passTheRestOfTheValues(size, newArr, arr1SubsetLeftIndex, arr1SubsetRightIndex, arr2);
+
+    return newArr;
+}
+
+/**
+ *  Function to perform a mutation in an array
+ * 
+ *  @param size the size of the array
+ *  @param arr the array in which a mutation is to be performed
+ *  @param seedParameter the parameter for initializing the random seed
+ */
+void performMutation(int size, int* arr, int seedParameter){
+
+    //Declare to indices
+    int index1 = -1;
+    int index2 = -1;
+    //Assign values to those indices
+    pickRandomDifferentIndicesInRange(&index1, &index2, size, seedParameter);
+    //Swap the values in those indices
     swap(arr, index1, index2);
 }
 
+/**
+ * Function to create a child permutation from two given parent chromosomes 
+ * 
+ * @param c1 the first parent chromosome
+ * @param c2 the second parent chromosome
+ * 
+ * @return a child permutation created by crossing over the parent's permutations
+ */
 int* createPermutationFromParents(struct chromosome c1, struct chromosome c2){
 
-    /*
-        INSERT LOGIC ABOUT MERGING CHROMOSOMES HERE
-    */
-
+    //An array of primes to add randomness to the crossover
     int primes[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47};
 
-    int* childPermutation = orderedCrossover(c1.citiesAmount, c1.citiesPermutation, c2.citiesPermutation, c1.generation*c2.generation + primes[rand()%15]);
+    //Create the cross over
+    int* childPermutation = performOrderedCrossover(c1.citiesAmount, c1.citiesPermutation, c2.citiesPermutation, c1.generation*c2.generation + primes[rand()%15]);
+    
+    //Perform a mutation in the array returned by the crossover
     performMutation(c1.citiesAmount, childPermutation, c1.generation*c2.generation + primes[rand()%15]);
     
     return childPermutation;
 }
 
-int* setToNegativesArray(int size){
+/**
+ * Function to generate an array filled with -1's
+ *  
+ * @param size the size of the desired array
+ * @return an array of size "size" filled with -1's
+ */
+int* createArrayWithNegativeValues(int size){
 
+    //Create the array
     int* arr = malloc(sizeof(int)*size);
 
+    //Initialize with -1's
     for(int i = 0; i < size; i++){
 
         arr[i] = -1;
@@ -392,22 +563,42 @@ void createRandomChromosome(struct chromosome* ptrChromosome, int seedParameter,
     setChromosomeTotalDistance(ptrChromosome, citiesArray, amountOfCities); //Set the total distance traveled
 }
 
+/**
+ * Function to create a child chromosome form two parent chromosomes
+ * 
+ * @param c1 the first parent chromosome
+ * @param c2 the second parent chromosome
+ * @param generation the generation of the child chromosome
+ * @param amountOfCities the amount of cities for the chromosomes
+ * @param citiesArray the array of cities for calculating the total distance of a chromosome
+ * @return the child chromosome
+ */ 
 struct chromosome createChildChromosome(struct chromosome c1, struct chromosome c2, int generation, int amountOfCities, struct city citiesArray[]){
-    
+
+    // Declare a new chromosome
     struct chromosome childChromosome;
+    // Create a child permutation for the child chromosome
     childChromosome.citiesPermutation = createPermutationFromParents(c1, c2);
+    // Assign the amount of cities
     childChromosome.citiesAmount = c1.citiesAmount;
+    // Assign the generation of the child chromosome
     childChromosome.generation = generation;
     setChromosomeTotalDistance(&childChromosome, citiesArray, amountOfCities); //Set the total distance traveled
 
     return childChromosome;  
 }
 
-void displayChromosomesArray(int totalChromosomes, struct chromosome chromosomesArray[]){
+/**
+ * Function to display an array of chromosomes
+ * @param size the size of the array
+ * @param chromosomesArray the array of chromosomes
+ */
+void displayChromosomesArray(int size, struct chromosome chromosomesArray[]){
 
-    for(int i = 0; i < totalChromosomes; i++){
+    for(int i = 0; i < size; i++){
 
         printf("Chromosome #%d:", i);
+        //Display the information of this chromosome
         displayChromosome(chromosomesArray[i]);
     }
 
@@ -425,24 +616,30 @@ void displayChromosomesArray(int totalChromosomes, struct chromosome chromosomes
  */
 struct chromosome solve(int amountOfCities, struct city citiesArray[]){
 
-    int totalChromosomes = 100;
+    // Amount of chromosomes we will be working with at any given generation
+    const int totalChromosomes = 100;
+
+    //Array of chromosomes we will be working with
     struct chromosome chromosomesArray[totalChromosomes];
 
-    for(int i = 0; i < totalChromosomes; i++) //Initialize all the permutations with fake values
-        chromosomesArray[i].citiesPermutation = setToNegativesArray(amountOfCities);
+    for(int i = 0; i < totalChromosomes; i++){ 
+        
+        //Initialize all the permutations with fake values
+        chromosomesArray[i].citiesPermutation = createArrayWithNegativeValues(amountOfCities);
+    }
 
     for(int i = 0; i < totalChromosomes; i++){
 
+        //Create a random chromosome
         createRandomChromosome(&(chromosomesArray[i]), i + 1, amountOfCities, citiesArray, 0, totalChromosomes, chromosomesArray);
     }
 
-    /*
-        INSERT LOGIC OF GA HERE
-    */
+    // Amount of chromosome generations we will be working with
+    const int totalGenerations = 1000;
+    // Amount of "elite" chromosomes we will be taking; the elite ones are the ones with the least total distance
+    const int bestToChromosomesToBeTaken = totalChromosomes/4;
 
-    int totalGenerations = 100;
-    int bestToChromosomesToBeTaken = totalChromosomes/4;
-
+    // Iterate through the generations
     for(int i = 0; i < totalGenerations; i++){
 
         //Sort the array of chromosomes
@@ -456,17 +653,19 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
                 3. The i-th chromosome with the (i + 3)-th chromosome
         */
 
+        // Create child chromosomes for the indices between (bestToChromosomesToBeTaken) and (totalChromosomes - 1), inclusive
         for(int k = 1; k <= 3; k++){
 
             for(int j = 0; j < 25; j++){
 
-                // Create child chromosomes for the indices between (bestToChromosomesToBeTaken) and (totalChromosomes - 1), inclusive
-                printf("chromosomesArray[%d] -> ", j);
-                displayArray(chromosomesArray[j].citiesPermutation, chromosomesArray[j].citiesAmount);
-
-                printf("chromosomesArray[%d] -> ", (j + k)%bestToChromosomesToBeTaken);
-                displayArray(chromosomesArray[(j + k)%totalChromosomes].citiesPermutation, chromosomesArray[(j + k)%bestToChromosomesToBeTaken].citiesAmount);
-                chromosomesArray[k*bestToChromosomesToBeTaken + j] = createChildChromosome(chromosomesArray[j], chromosomesArray[(j + k)%bestToChromosomesToBeTaken], i, amountOfCities, citiesArray);
+                //Declare the index of the first parent
+                int parent1Index = j;
+                //Declare the index of the second parent
+                int parent2Index = (j + k)%bestToChromosomesToBeTaken;
+                //Declare the index of the child chromosome
+                int childChromosomeIndex = k*bestToChromosomesToBeTaken + j;
+                //Create the child chromosome
+                chromosomesArray[childChromosomeIndex] = createChildChromosome(chromosomesArray[parent1Index], chromosomesArray[parent2Index], i, amountOfCities, citiesArray);
             }
         }
     }
@@ -474,7 +673,8 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
     //Sort the array one last time
     qsort(chromosomesArray, totalChromosomes, sizeof(struct chromosome), cmpfunc);
 
-    displayChromosomesArray(totalChromosomes, chromosomesArray);
+    //Display the final chromosome array
+    // displayChromosomesArray(totalChromosomes, chromosomesArray);
 
     //Return the first element of the array after being sorted, i.e. the chromosome with the least distance
     return chromosomesArray[0];
