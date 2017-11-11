@@ -38,15 +38,23 @@ int cmpfunc(const void *ptrChromo1, const void *ptrChromo2){
 }
 
 void displayChromosome(struct chromosome chromosome){
-
+    
     printf("\n");
     printf("citiesAmount = %d\n", chromosome.citiesAmount);
     printf("citiesPermutation = ");
 
-    for(int i = 0; i < chromosome.citiesAmount; i++)
-        printf("%d ", chromosome.citiesPermutation[i]);
+    if(chromosome.citiesPermutation == NULL){
 
-    printf("\n");
+        printf("The permutation is NULL.\n");
+    }
+
+    else{
+
+        for(int i = 0; i < chromosome.citiesAmount; i++)
+            printf("%d ", chromosome.citiesPermutation[i]);
+
+        printf("\n");
+    }
 
     printf("totalDistance = %lf\n", chromosome.totalDistance);
     printf("generation = %d\n", chromosome.generation);
@@ -168,14 +176,45 @@ void swap(int* array, int index1, int index2){
 }
 
 //Implementation of the Fisher-Yates algorithm
-void shuffle(int *array, int amountOfCities){
+void shuffle(int *array, int amountOfCities, int seedParameter){
 
+    time_t t;
+    /* initialize random seed. Make i a parameter. */
+    srand((unsigned) time(&t) + seedParameter*seedParameter);
     int i, j, tmp;
     for(i = amountOfCities - 1; i > 0; i--){
 
         j = rand()%(i + 1); //Pick a random number between 0 and i
         swap(array, i, j); //Swap array[i] and array[j]
     }
+}
+
+void displayArray(int* arr, int size){
+
+    if(arr == NULL){
+
+        printf("Null array!\n");
+        return;
+    }
+
+    for(int i = 0; i < size; i++)
+        printf("%d ", *(arr + i));
+
+    printf("\n");
+}
+
+int areEqualPermutations(int *permutation1, int* permutation2, int size){   
+
+    if(permutation1 == NULL || permutation2 == NULL)
+        return 0;
+
+    for(int i = 0; i < size; i++){ //Iterate through the whole permutations
+
+        if(permutation1[i] != permutation2[i]) //If there is a mismatch, they're not equal{
+            return 0;
+    }
+
+    return 1; //If there was no mismatch, then they're equal
 }
 
 /**
@@ -187,8 +226,19 @@ void shuffle(int *array, int amountOfCities){
  *
  * @return 1 if the permutation already exists. Else, 0.
  */
- int permutationAlreadyExists(int* citiesPermutation, int size){
+ int permutationAlreadyExists(int* citiesPermutation, int size, int totalChromosomes, struct chromosome chromosomesArray[]){
 
+    for(int i = 0; i < totalChromosomes; i++){
+
+        if(chromosomesArray[i].citiesPermutation == NULL){
+
+            continue;
+        }
+
+        if(areEqualPermutations(citiesPermutation, chromosomesArray[i].citiesPermutation, size))
+            return 1;
+    }
+   
    return 0;
  }
 
@@ -200,16 +250,18 @@ void shuffle(int *array, int amountOfCities){
  * @return a pointer to an integer representing the array of the shuffled numbers
  * from 0 to size - 1.
  */ 
-int* generateRandomPermutation(int size){
-
+int* generateRandomPermutation(int size, int seedParameter, int totalChromosomes, struct chromosome chromosomesArray[]){
+    
     int* citiesPermutation = malloc(sizeof(int)*size);
     
     for(int i = 0; i < size; i++)
         citiesPermutation[i] = i; //Assign the values from 0 to n - 1
 
+    int counter = 0;
+
     do{
-        shuffle(citiesPermutation, size); //Shuffle the array
-    }while(permutationAlreadyExists(citiesPermutation, size));
+        shuffle(citiesPermutation, size, seedParameter); //Shuffle the array
+    }while(permutationAlreadyExists(citiesPermutation, size, totalChromosomes, chromosomesArray));
     
     return citiesPermutation; //Return the array
 }
@@ -219,7 +271,21 @@ int* createPermutationFromParents(struct chromosome c1, struct chromosome c2){
     /*
         INSERT LOGIC ABOUT MERGING CHROMOSOMES HERE
     */
+
+    
     return c1.citiesPermutation;
+}
+
+int* setToNegativesArray(int size){
+
+    int* arr = malloc(sizeof(int)*size);
+
+    for(int i = 0; i < size; i++){
+
+        arr[i] = -1;
+    }
+
+    return arr;
 }
 
 /**
@@ -232,9 +298,9 @@ int* createPermutationFromParents(struct chromosome c1, struct chromosome c2){
  * are stored.
  * @generation the generation of the chromosome since the start of the program's execution
  */ 
-void createRandomChromosome(struct chromosome* ptrChromosome, int amountOfCities, struct city citiesArray[], int generation){
+void createRandomChromosome(struct chromosome* ptrChromosome, int seedParameter, int amountOfCities, struct city citiesArray[], int generation, int totalChromosomes, struct chromosome chromosomesArray[]){
 
-    (*ptrChromosome).citiesPermutation = generateRandomPermutation(amountOfCities); //Set the population
+    (*ptrChromosome).citiesPermutation = generateRandomPermutation(amountOfCities, seedParameter, totalChromosomes, chromosomesArray); //Set the population
     (*ptrChromosome).citiesAmount = amountOfCities; //Set the amout of cities
     (*ptrChromosome).generation = generation; //Set the generation
     setChromosomeTotalDistance(ptrChromosome, citiesArray, amountOfCities); //Set the total distance traveled
@@ -251,6 +317,16 @@ struct chromosome createChildChromosome(struct chromosome c1, struct chromosome 
     return childChromosome;  
 }
 
+void displayChromosomesArray(int totalChromosomes, struct chromosome chromosomesArray[]){
+
+    for(int i = 0; i < totalChromosomes; i++){
+
+        printf("Chromosome #%d:", i);
+        displayChromosome(chromosomesArray[i]);
+    }
+
+    printf("\n");
+}
 
 /**
  * Function in which a genetic algorithm will be implemented to solve the TSP.
@@ -266,13 +342,12 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
     int totalChromosomes = 100;
     struct chromosome chromosomesArray[totalChromosomes];
 
-    time_t t;
+    for(int i = 0; i < totalChromosomes; i++) //Initialize all the permutations with fake values
+        chromosomesArray[i].citiesPermutation = setToNegativesArray(amountOfCities);
 
     for(int i = 0; i < totalChromosomes; i++){
 
-        /* initialize random seed. Make i a parameter. */
-        srand((unsigned) time(&t) + i*i);
-        createRandomChromosome(&(chromosomesArray[i]), amountOfCities, citiesArray, 0);
+        createRandomChromosome(&(chromosomesArray[i]), i + 1, amountOfCities, citiesArray, 0, totalChromosomes, chromosomesArray);
     }
 
     /*
@@ -299,7 +374,7 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
 
             for(int j = 0; j < 25; j++){
 
-                //Create child chromosomes for the indices between (bestToChromosomesToBeTaken) and (totalChromosomes - 1), inclusive
+                // Create child chromosomes for the indices between (bestToChromosomesToBeTaken) and (totalChromosomes - 1), inclusive
                 chromosomesArray[k*bestToChromosomesToBeTaken + j] = createChildChromosome(chromosomesArray[j], chromosomesArray[(j + k)%totalChromosomes], i, amountOfCities, citiesArray);
             }
         }
@@ -307,6 +382,8 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
 
     //Sort the array one last time
     qsort(chromosomesArray, totalChromosomes, sizeof(struct chromosome), cmpfunc);
+
+    displayChromosomesArray(totalChromosomes, chromosomesArray);
 
     //Return the first element of the array after being sorted, i.e. the chromosome with the least distance
     return chromosomesArray[0];
@@ -320,6 +397,8 @@ int main(){
     readInput(citiesArray, numberCities);//read the values of latitude and longitude in the file
     displayCities(citiesArray, numberCities);//Display the cities information.
     struct chromosome shortestPathChromosome = solve(numberCities, citiesArray);
+    
+    printf("Winning chromosome:");
     displayChromosome(shortestPathChromosome);
 
     return 0;
