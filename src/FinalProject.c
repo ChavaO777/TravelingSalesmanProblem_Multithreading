@@ -29,12 +29,20 @@ struct chromosome {
     int generation;
 };//end of the chromosome struct
 
+double computeChromosomeScore(struct chromosome chromosome){
+
+    return chromosome.totalDistance;
+}
+
+/**
+ * Function to compare chromosomes according to their distance and generation
+ * 
+ */ 
 int cmpfunc(const void *ptrChromo1, const void *ptrChromo2){
 
     const struct chromosome* ptrChromosome1 = (struct chromosome*) ptrChromo1;
     const struct chromosome* ptrChromosome2 = (struct chromosome*) ptrChromo2;
-
-    return (*ptrChromosome1).totalDistance - (*ptrChromosome2).totalDistance;
+    return computeChromosomeScore(*ptrChromosome1) - computeChromosomeScore(*ptrChromosome2);
 }
 
 void displayChromosome(struct chromosome chromosome){
@@ -266,14 +274,69 @@ int* generateRandomPermutation(int size, int seedParameter, int totalChromosomes
     return citiesPermutation; //Return the array
 }
 
+int valueExistsInArray(int size, int value, int* array){
+
+    for(int i = 0; i < size; i++)
+        if(array[i] == value)
+            return 1;
+
+    return 0;
+}
+
+int indexWasFilledBefore(int index, int leftSubsetIndex, int rightSubsetIndex){
+
+    return leftSubsetIndex <= index && index <= rightSubsetIndex;
+}
+
+// Idea taken from: http://www.theprojectspot.com/tutorial-post/applying-a-genetic-algorithm-to-the-travelling-salesman-problem/5
+int* orderedCrossover(int size, int* arr1, int* arr2, int seedParameter){
+
+    srand(time(NULL));
+    seedParameter += rand()%1000;
+
+    time_t t;
+    /* initialize random seed. Make i a parameter. */
+    srand((unsigned) time(&t) + seedParameter*seedParameter);
+
+    int arr1SubsetLeftIndex = rand()%(size/2);
+    int arr1SubsetRightIndex = arr1SubsetLeftIndex + rand()%(size/2);
+
+    int* newArr = malloc(sizeof(int)*size);
+
+    for(int i = 0; i < size; i++){
+
+        //Just pass this value to the new array
+        if(arr1SubsetLeftIndex <= i && i <= arr1SubsetRightIndex)
+            newArr[i] = arr1[i];
+
+        else //Initialize with a fake negative value
+            newArr[i] = -1; 
+    }
+
+    int arr2Index = 0;
+    for(int i = 0; i < size; i++){
+
+        if(indexWasFilledBefore(i, arr1SubsetLeftIndex, arr1SubsetRightIndex))
+            continue;
+
+        while(arr2Index < size && valueExistsInArray(size, arr2[arr2Index], newArr))
+            arr2Index++;
+
+        newArr[i] = arr2[arr2Index];
+    }
+
+    return newArr;
+}
+
 int* createPermutationFromParents(struct chromosome c1, struct chromosome c2){
 
     /*
         INSERT LOGIC ABOUT MERGING CHROMOSOMES HERE
     */
 
-    
-    return c1.citiesPermutation;
+    int primes[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47};
+
+    return orderedCrossover(c1.citiesAmount, c1.citiesPermutation, c2.citiesPermutation, c1.generation*c2.generation + primes[rand()%15]);
 }
 
 int* setToNegativesArray(int size){
@@ -382,7 +445,7 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
 
     //Sort the array one last time
     qsort(chromosomesArray, totalChromosomes, sizeof(struct chromosome), cmpfunc);
-
+    
     displayChromosomesArray(totalChromosomes, chromosomesArray);
 
     //Return the first element of the array after being sorted, i.e. the chromosome with the least distance
