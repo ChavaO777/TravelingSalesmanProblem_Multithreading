@@ -1,6 +1,6 @@
 #define _GNU_SOURCE
 #include <pthread.h>
-// #include <syscall.h>
+#include <syscall.h>
 #include <sched.h>
 #include <stdio.h>
 #include <stdlib.h>
