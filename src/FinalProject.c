@@ -699,15 +699,15 @@ void* threadSolution(void *arg){
 
         struct chromosome shortestPathChromosome = solve( (*id).numberCities, (*id).citiesList);
         int sid = syscall(SYS_gettid);//get the number of the current thread
-        printf("In thread %d  Winning chromosome:",sid);
-        displayChromosome(shortestPathChromosome );
+        printf("In thread #%d, the winning chromosome is the following:",sid);
+        displayChromosome(shortestPathChromosome);
         printf("\n");
     }
     
     else{
 
         int sid = syscall(SYS_gettid);//get the number of the current thread
-        printf("No core Avaibale for thread %d \n",sid);
+        printf("No core is available for thread #%d.\n",sid);
     }
 }
 
