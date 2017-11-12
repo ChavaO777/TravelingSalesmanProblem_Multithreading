@@ -507,7 +507,7 @@ int* createPermutationFromParents(struct chromosome c1, struct chromosome c2){
     int* childPermutation = performOrderedCrossover(c1.citiesAmount, c1.citiesPermutation, c2.citiesPermutation, c1.generation*c2.generation + primes[rand()%15]);
     
     //Total mutations to be performed
-    const int totalMutations = 2;
+    const int totalMutations = 1 + rand()%3;
 
     //Perform mutations in the array returned by the crossover
     for(int i = 0; i < totalMutations; i++){
