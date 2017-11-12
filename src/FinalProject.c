@@ -232,7 +232,7 @@ void displayArray(int* arr, int size){
 }
 
 /**
- *  Function to determine if to permutations are equal
+ *  Function to determine if two permutations are equal
  *  
  *  @param permutation1 the first permutation to be compared
  *  @param permutation2 the second permutation to be compared
@@ -628,7 +628,7 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
     }
 
     // Amount of chromosome generations we will be working with
-    const int totalGenerations = 1000;
+    const int totalGenerations = 10000;
     // Amount of "elite" chromosomes we will be taking; the elite ones are the ones with the least total distance
     const int bestToChromosomesToBeTaken = totalChromosomes/4;
 
