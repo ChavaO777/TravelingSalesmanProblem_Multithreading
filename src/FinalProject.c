@@ -695,7 +695,7 @@ void* threadSolution(void *arg){
     struct arguments* id = (struct arguments*) arg;
     int error = coreAssign((*id).core);//call to coreAssign function and check if are aviable core
     
-    if(err == 0){
+    if(error == 0){
 
         struct chromosome shortestPathChromosome = solve( (*id).numberCities, (*id).citiesList);
         int sid = syscall(SYS_gettid);//get the number of the current thread
