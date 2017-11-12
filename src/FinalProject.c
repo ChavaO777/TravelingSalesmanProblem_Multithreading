@@ -1,10 +1,25 @@
+#define _GNU_SOURCE
+#include <pthread.h>
+#include <syscall.h>
+#include <sched.h>
 #include <stdio.h>
-#include <math.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <assert.h>
+#include <math.h>
 #include <time.h>
-
+int coreAssign(int core_id); //declararion of coreAssign
 #define EARTH_RADIUS_KM 6371 // authalic radius based on/extracted from surface area;
+/**
+ * Structure of a argumenst. these structure will use to pass parameters to the threads 
+ */
+struct arguments{
 
+    int numberCities;
+    struct city* citiesList;
+    int core;
+};//end of the arguments struct
 /**
  * Structure of a city. It includes an integer id, its latitude and longitude
  */
@@ -35,6 +50,8 @@ struct chromosome {
  * @param chromosome the chromosome whose score is to be computed
  * @return the score of the chromosome
  */ 
+
+
 double computeChromosomeScore(struct chromosome chromosome){
 
     // The score of the chromosome is only its total distance; the lower, the better
@@ -232,7 +249,7 @@ void displayArray(int* arr, int size){
 }
 
 /**
- *  Function to determine if two permutations are equal
+ *  Function to determine if to permutations are equal
  *  
  *  @param permutation1 the first permutation to be compared
  *  @param permutation2 the second permutation to be compared
@@ -608,19 +625,19 @@ void displayChromosomesArray(int size, struct chromosome chromosomesArray[]){
  * @return bestChromosome the chromosome with the best route for the traveler
  */
 struct chromosome solve(int amountOfCities, struct city citiesArray[]){
-
+   
     // Amount of chromosomes we will be working with at any given generation
     const int totalChromosomes = 100;
 
     //Array of chromosomes we will be working with
     struct chromosome chromosomesArray[totalChromosomes];
-
+ 
     for(int i = 0; i < totalChromosomes; i++){ 
         
         //Initialize all the permutations with fake values
         chromosomesArray[i].citiesPermutation = createArrayWithNegativeValues(amountOfCities);
     }
-
+    
     for(int i = 0; i < totalChromosomes; i++){
 
         //Create a random chromosome
@@ -628,7 +645,7 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
     }
 
     // Amount of chromosome generations we will be working with
-    const int totalGenerations = 10000;
+    const int totalGenerations = 1000;
     // Amount of "elite" chromosomes we will be taking; the elite ones are the ones with the least total distance
     const int bestToChromosomesToBeTaken = totalChromosomes/4;
 
@@ -667,23 +684,58 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
     qsort(chromosomesArray, totalChromosomes, sizeof(struct chromosome), cmpfunc);
 
     //Display the final chromosome array
-    displayChromosomesArray(totalChromosomes, chromosomesArray);
+    //displayChromosomesArray(totalChromosomes, chromosomesArray);
 
     //Return the first element of the array after being sorted, i.e. the chromosome with the least distance
     return chromosomesArray[0];
 }
 
+ void* threadSolution(void *arg)
+{
+    struct arguments* id = (struct arguments*) arg;
+    int error = coreAssign((*id).core);//call to coreAssign function and check if are aviable core
+    if(err == 0)
+    {
+        struct chromosome shortestPathChromosome = solve( (*id).numberCities, (*id).citiesList);
+        int sid = syscall(SYS_gettid);//get the number of the current thread
+        printf("In thread %d  Winning chromosome:",sid);
+        displayChromosome(shortestPathChromosome );
+        printf("\n");
+    }
+    else{
+        int sid = syscall(SYS_gettid);//get the number of the current thread
+        printf("No core Avaibale for thread %d \n",sid);
+    }
+}
+
+int coreAssign(int core_id) {
+   int numberOfCores = sysconf(_SC_NPROCESSORS_ONLN);//get number of processors which are currently online 
+   if (core_id < 0 || core_id >= numberOfCores)
+      return 1;//retunr 1 if its an error in the core_id
+   cpu_set_t processor;//declare a set of CPUs
+   CPU_ZERO(&processor);// Clears set, so that it contains no CPUs.
+   CPU_SET(core_id, &processor);// Add CPU cpu to set.
+   pthread_t actualThread = pthread_self(); //call the actual thread id
+   return pthread_setaffinity_np(actualThread, sizeof(cpu_set_t), &processor);//sets the thread in the cpu assigned
+}
 //main function
 int main(){
-
+    int numbersProcessors = 4;//set numer of processor
     int numberCities = readCities();//store the number of cities in the file
     struct city citiesArray[numberCities];//array of structures of city
     readInput(citiesArray, numberCities);//read the values of latitude and longitude in the file
     displayCities(citiesArray, numberCities);//Display the cities information.
-    struct chromosome shortestPathChromosome = solve(numberCities, citiesArray);
-    
-    printf("Winning chromosome:");
-    displayChromosome(shortestPathChromosome);
-
+    struct arguments args; //create a new srtucture for the threads
+    args.numberCities = numberCities;
+    args.citiesList = citiesArray;   
+    pthread_t tid[numbersProcessors];//declaration for threads
+    for(int threadFor = 0; threadFor < numbersProcessors;threadFor++ ){
+        args.core =threadFor;//set the procesor number
+        pthread_create(&(tid[threadFor]), NULL, threadSolution, &args);
+   }   
+    for(int threadFor = 0; threadFor < numbersProcessors;threadFor++ ){
+         pthread_join(tid[threadFor], NULL);
+   }   
+  
     return 0;
 }//end of the main function
