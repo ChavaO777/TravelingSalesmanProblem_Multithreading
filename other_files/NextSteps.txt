@@ -1,9 +1,0 @@
-// NextSteps.txt
-
-Ideas:
-
-1. Is there any other way to represent genes?
-2. We need three functions:
-	a) A functions to generate a population
-	b) A functions to mix chromosomes (making sure no gene will be repeated)
-	c) The main function with the mutation rule
