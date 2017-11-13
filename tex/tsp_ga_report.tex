@@ -70,6 +70,8 @@
   \usepackage{algorithm}
   \usepackage[noend]{algpseudocode}
   
+  \usepackage{wrapfig}
+  
   \usepackage{selinput}
   \SelectInputMappings{%
     aacute={á},
@@ -308,7 +310,56 @@ As we set the amount of chromosome generations $G$ as $10000$ and the amount of 
   \end{tabu}
     \caption{Performance comparison across four sets of input}
   \end{table}
-%   \footnotetext{Table 1. Performance comparison across four sets of input}
+  
+\subsection{Screenshots of the program execution}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.40\textwidth]{output1_1_singleThread_10Cities.jpg}
+\caption{Output of the single-threaded program with $10$ cities as input}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.40\textwidth]{output1_2_multiThread_10Cities.jpg}
+\caption{Output of the multi-threaded program with $4$ cores and $10$ cities as input}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.40\textwidth]{output2_1_singleThread_15Cities.jpg}
+\caption{Output of the single-threaded program with $15$ cities as input}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.40\textwidth]{output2_2_multiThread_15Cities.jpg}
+\caption{Output of the multi-threaded program with $4$ cores and $15$ cities as input}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.40\textwidth]{output3_1_singleThread_20Cities.jpg}
+\caption{Output of the single-threaded program with $20$ cities as input}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.40\textwidth]{output3_2_multiThread_20Cities.jpg}
+\caption{Output of the multi-threaded program with $4$ cores and $20$ cities as input}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.40\textwidth]{output4_1_singleThread_25Cities.jpg}
+\caption{Output of the single-threaded program with $25$ cities as input}
+\end{figure} 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.40\textwidth]{output4_2_multiThread_25Cities.jpg}
+\caption{Output of the multi-threaded program with $4$ cores and $25$ cities as input}
+\end{figure} 
   
 %------------------------------------------------
   
