@@ -310,22 +310,18 @@ As we set the amount of chromosome generations $G$ as $10000$ and the amount of 
   \end{table}
 %   \footnotetext{Table 1. Performance comparison across four sets of input}
   
-  %------------------------------------------------
+%------------------------------------------------
   
-  \section{Discussion}
+\section{Discussion}
   
-  \subsection{Subsection One}
+We can see that in all four cases, the multithreaded approach is around twice as fast as the single-threaded one, taking into account that the former version of the program makes finds four solutions separately, while the latter only finds one. Nevertheless, both versions of the program always get the same solution in terms of the total distance of the permutation that was found, even if the permutation of one of the versions is a rotation of that of the other.\linebreak
+
+At first, we hadn't considered rotations of the same cycle as possibilities to reach the same output. However, after a few tests we discovered this, although we also discovered cases in which a two different permutations (none of which is a cycle of the other) reached the same total distance, thus being both valid solutions.
+%-------------------------------------------------
   
-  % A statement requiring citation \cite{Figueredo:2009dg}.
-  \blindtext % Dummy text
+\section{Conclusion}
   
-  \subsection{Subsection Two}
-  
-  \blindtext % Dummy text
-  
-  %-------------------------------------------------
-  
-  \section{Conclusion}
+The Traveling Salesman Problem is a very interesting problem not only because it concerns daily tasks in the lives of lots of people, but also because of its difficult nature, yet simple desctription. Although we were a bit afraid to tackle such a problem, we think that, in the end, we developed a solution which could be good enough for general purposes. Nevertheless, if we were to use the program's results for scientific or more serious purposes, we would have to work on the logic of the child generation and the ordered crossover, while also thinking deeper in the amount of generations and the amount of chromosomes per generation.
   
   %----------------------------------------------------------------------------------------
   %	REFERENCE LIST
