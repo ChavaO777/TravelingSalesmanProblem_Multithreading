@@ -1,6 +1,6 @@
 # Fdb version 3
-["pdflatex"] 1510601734 "/Users/salvador/Desktop/TravelingSalesmanProblem_Multithreading/tex/tsp_ga_report.tex" "tsp_ga_report.pdf" "tsp_ga_report" 1510601734
-  "/Users/salvador/Desktop/TravelingSalesmanProblem_Multithreading/tex/tsp_ga_report.tex" 1510601734 19553 891081f0b7714bcfe1a86a02cc3c4a0f ""
+["pdflatex"] 1510603272 "/Users/salvador/Desktop/TravelingSalesmanProblem_Multithreading/tex/tsp_ga_report.tex" "tsp_ga_report.pdf" "tsp_ga_report" 1510603272
+  "/Users/salvador/Desktop/TravelingSalesmanProblem_Multithreading/tex/tsp_ga_report.tex" 1510603272 20412 202c014c06350da7e3fbfc59eb402e7a ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1480098666 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
@@ -218,11 +218,11 @@
   "output3_2_multiThread_20Cities.jpg" 0 -1 0 ""
   "output4_1_singleThread_25Cities.jpg" 0 -1 0 ""
   "output4_2_multiThread_25Cities.jpg" 0 -1 0 ""
-  "tsp_ga_report.aux" 1510593054 3381 ab442d88bdeae6070420efebdeb1c2ff ""
-  "tsp_ga_report.out" 1510593054 894 c6a2504267657373e4509befdbd78995 ""
-  "tsp_ga_report.tex" 1510601734 19553 891081f0b7714bcfe1a86a02cc3c4a0f ""
+  "tsp_ga_report.aux" 1510601735 4871 7c75f6d219ac1f05791fff15ee76aa65 ""
+  "tsp_ga_report.out" 1510601735 980 c415deb7bd497dfc21dbd25c236384a5 ""
+  "tsp_ga_report.tex" 1510603272 20412 202c014c06350da7e3fbfc59eb402e7a ""
   (generated)
+  "tsp_ga_report.out"
   "tsp_ga_report.log"
   "tsp_ga_report.pdf"
-  "tsp_ga_report.out"
   "tsp_ga_report.aux"

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  13 NOV 2017 13:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  13 NOV 2017 14:01
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1567,26 +1567,21 @@ Overfull \hbox (4.61247pt too wide) in paragraph at lines 274--282
 LaTeX Font Info:    Font shape `T1/pplx/bx/n' in size <9> not available
 (Font)              Font shape `T1/pplx/b/n' tried instead on input line 282.
 
-Underfull \hbox (badness 10000) in paragraph at lines 291--292
-\T1/pplx/m/n/10 (+20) The fol-low-ing ta-ble shows a com-
+Underfull \hbox (badness 1546) in paragraph at lines 294--295
+\T1/pplx/m/n/10 (+20) The fol-low-ing ta-ble shows a com-par-i-son
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 291--292
-\T1/pplx/m/n/10 (+20) par-i-son across four sets of in-put
+Underfull \hbox (badness 2884) in paragraph at lines 294--295
+\T1/pplx/m/n/10 (+20) of the so-lu-tions found across four sets
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 291--292
-\T1/pplx/m/n/10 (+20) rang-ing from 10 to 25 cities each.
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 291--292
+Underfull \hbox (badness 10000) in paragraph at lines 294--295
 
  []
 
-LaTeX Font Info:    Try loading font information for T1+cmss on input line 295.
+LaTeX Font Info:    Try loading font information for T1+cmss on input line 297.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1cmss.fd
 File: t1cmss.fd 2014/09/29 v2.5h Standard LaTeX font definitions
@@ -1596,26 +1591,30 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
+Underfull \hbox (badness 10000) in paragraph at lines 316--317
+
+ []
+
 
 LaTeX Warning: File `output1_1_singleThread_10Cities.jpg' not found on input li
-ne 318.
+ne 342.
 
 
 /Users/salvador/Desktop/TravelingSalesmanProblem_Multithreading/tex/tsp_ga_repo
-rt.tex:318: Package pdftex.def Error: File `output1_1_singleThread_10Cities.jpg
+rt.tex:342: Package pdftex.def Error: File `output1_1_singleThread_10Cities.jpg
 ' not found.
 
 See the pdftex.def package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.318 ...dth]{output1_1_singleThread_10Cities.jpg}
+l.342 ...dth]{output1_1_singleThread_10Cities.jpg}
                                                   
 Using draft setting for this image.
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 318.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 342.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
@@ -1625,185 +1624,214 @@ Package microtype Info: Loading generic settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-
-LaTeX Warning: File `output1_2_multiThread_10Cities.jpg' not found on input lin
-e 324.
-
-
-/Users/salvador/Desktop/TravelingSalesmanProblem_Multithreading/tex/tsp_ga_repo
-rt.tex:324: Package pdftex.def Error: File `output1_2_multiThread_10Cities.jpg'
- not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.324 ...idth]{output1_2_multiThread_10Cities.jpg}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
+Overfull \hbox (10.0pt too wide) in paragraph at lines 342--343
+ [][] 
+ []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [3]
 
-LaTeX Warning: File `output2_1_singleThread_15Cities.jpg' not found on input li
-ne 330.
+LaTeX Warning: File `output1_2_multiThread_10Cities.jpg' not found on input lin
+e 348.
 
 
 /Users/salvador/Desktop/TravelingSalesmanProblem_Multithreading/tex/tsp_ga_repo
-rt.tex:330: Package pdftex.def Error: File `output2_1_singleThread_15Cities.jpg
-' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.330 ...dth]{output2_1_singleThread_15Cities.jpg}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: File `output2_2_multiThread_15Cities.jpg' not found on input lin
-e 336.
-
-
-/Users/salvador/Desktop/TravelingSalesmanProblem_Multithreading/tex/tsp_ga_repo
-rt.tex:336: Package pdftex.def Error: File `output2_2_multiThread_15Cities.jpg'
+rt.tex:348: Package pdftex.def Error: File `output1_2_multiThread_10Cities.jpg'
  not found.
 
 See the pdftex.def package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.336 ...idth]{output2_2_multiThread_15Cities.jpg}
+l.348 ...idth]{output1_2_multiThread_10Cities.jpg}
                                                   
 Using draft setting for this image.
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
+
+
+LaTeX Warning: File `output2_1_singleThread_15Cities.jpg' not found on input li
+ne 354.
+
+
+/Users/salvador/Desktop/TravelingSalesmanProblem_Multithreading/tex/tsp_ga_repo
+rt.tex:354: Package pdftex.def Error: File `output2_1_singleThread_15Cities.jpg
+' not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.354 ...dth]{output2_1_singleThread_15Cities.jpg}
+                                                  
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 354--355
+ [][] 
+ []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-LaTeX Warning: File `output3_1_singleThread_20Cities.jpg' not found on input li
-ne 342.
+LaTeX Warning: File `output2_2_multiThread_15Cities.jpg' not found on input lin
+e 360.
 
 
 /Users/salvador/Desktop/TravelingSalesmanProblem_Multithreading/tex/tsp_ga_repo
-rt.tex:342: Package pdftex.def Error: File `output3_1_singleThread_20Cities.jpg
-' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.342 ...dth]{output3_1_singleThread_20Cities.jpg}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: File `output3_2_multiThread_20Cities.jpg' not found on input lin
-e 348.
-
-
-/Users/salvador/Desktop/TravelingSalesmanProblem_Multithreading/tex/tsp_ga_repo
-rt.tex:348: Package pdftex.def Error: File `output3_2_multiThread_20Cities.jpg'
+rt.tex:360: Package pdftex.def Error: File `output2_2_multiThread_15Cities.jpg'
  not found.
 
 See the pdftex.def package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.348 ...idth]{output3_2_multiThread_20Cities.jpg}
+l.360 ...idth]{output2_2_multiThread_15Cities.jpg}
                                                   
 Using draft setting for this image.
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 360--361
+ [][] 
+ []
+
+
+LaTeX Warning: File `output3_1_singleThread_20Cities.jpg' not found on input li
+ne 366.
+
+
+/Users/salvador/Desktop/TravelingSalesmanProblem_Multithreading/tex/tsp_ga_repo
+rt.tex:366: Package pdftex.def Error: File `output3_1_singleThread_20Cities.jpg
+' not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.366 ...dth]{output3_1_singleThread_20Cities.jpg}
+                                                  
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 366--367
+ [][] 
+ []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [4]
 
-LaTeX Warning: File `output4_1_singleThread_25Cities.jpg' not found on input li
-ne 354.
+LaTeX Warning: File `output3_2_multiThread_20Cities.jpg' not found on input lin
+e 372.
 
 
 /Users/salvador/Desktop/TravelingSalesmanProblem_Multithreading/tex/tsp_ga_repo
-rt.tex:354: Package pdftex.def Error: File `output4_1_singleThread_25Cities.jpg
-' not found.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.354 ...dth]{output4_1_singleThread_25Cities.jpg}
-                                                  
-Using draft setting for this image.
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: File `output4_2_multiThread_25Cities.jpg' not found on input lin
-e 360.
-
-
-/Users/salvador/Desktop/TravelingSalesmanProblem_Multithreading/tex/tsp_ga_repo
-rt.tex:360: Package pdftex.def Error: File `output4_2_multiThread_25Cities.jpg'
+rt.tex:372: Package pdftex.def Error: File `output3_2_multiThread_20Cities.jpg'
  not found.
 
 See the pdftex.def package documentation for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.360 ...idth]{output4_2_multiThread_25Cities.jpg}
+l.372 ...idth]{output3_2_multiThread_20Cities.jpg}
                                                   
 Using draft setting for this image.
 Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
 
+Overfull \hbox (10.0pt too wide) in paragraph at lines 372--373
+ [][] 
+ []
+
+
+LaTeX Warning: File `output4_1_singleThread_25Cities.jpg' not found on input li
+ne 378.
+
+
+/Users/salvador/Desktop/TravelingSalesmanProblem_Multithreading/tex/tsp_ga_repo
+rt.tex:378: Package pdftex.def Error: File `output4_1_singleThread_25Cities.jpg
+' not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.378 ...dth]{output4_1_singleThread_25Cities.jpg}
+                                                  
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 378--379
+ [][] 
+ []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
+LaTeX Warning: File `output4_2_multiThread_25Cities.jpg' not found on input lin
+e 384.
+
+
+/Users/salvador/Desktop/TravelingSalesmanProblem_Multithreading/tex/tsp_ga_repo
+rt.tex:384: Package pdftex.def Error: File `output4_2_multiThread_25Cities.jpg'
+ not found.
+
+See the pdftex.def package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.384 ...idth]{output4_2_multiThread_25Cities.jpg}
+                                                  
+Using draft setting for this image.
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (10.0pt too wide) in paragraph at lines 384--385
+ [][] 
+ []
+
+
 LaTeX Font Warning: Font shape `T1/cmss/m/sc' in size <12> not available
-(Font)              Font shape `T1/cmr/m/sc' tried instead on input line 366.
+(Font)              Font shape `T1/cmr/m/sc' tried instead on input line 390.
 
 (/usr/local/texlive/2017/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
-)
-Underfull \hbox (badness 10000) in paragraph at lines 368--369
-
- []
-
-[5]
-Underfull \hbox (badness 10000) in paragraph at lines 395--398
+) [5]
+Underfull \hbox (badness 10000) in paragraph at lines 419--422
 []\T1/cmss/m/n/8 (+20) University of Wa-ter-loo. (2007).  His-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 395--398
+Underfull \hbox (badness 10000) in paragraph at lines 419--422
 \T1/cmss/m/n/8 (+20) tory of the TSP. Uni-ver-sity of Wa-ter-loo
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 408.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 432.
 [6
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 408.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 432.
  (./tsp_ga_report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 408.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 408.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 432.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 432.
 
 
 Package rerunfilecheck Warning: File `tsp_ga_report.out' has changed.
@@ -1811,18 +1839,18 @@ Package rerunfilecheck Warning: File `tsp_ga_report.out' has changed.
 (rerunfilecheck)                or use package `bookmark'.
 
 Package rerunfilecheck Info: Checksums for `tsp_ga_report.out':
-(rerunfilecheck)             Before: C6A2504267657373E4509BEFDBD78995;894
-(rerunfilecheck)             After:  C415DEB7BD497DFC21DBD25C236384A5;980.
+(rerunfilecheck)             Before: C415DEB7BD497DFC21DBD25C236384A5;980
+(rerunfilecheck)             After:  27A2E76D562B15DFB0AE2F6FC29C4E56;1045.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 408.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 432.
  ) 
 Here is how much of TeX's memory you used:
- 24502 strings out of 492995
- 447581 string characters out of 6132704
- 571063 words of memory out of 5000000
- 27272 multiletter control sequences out of 15000+600000
+ 24505 strings out of 492995
+ 447629 string characters out of 6132704
+ 573121 words of memory out of 5000000
+ 27273 multiletter control sequences out of 15000+600000
  99185 words of font info for 278 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,17n,68p,764b,746s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1841,10 +1869,10 @@ type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2017/texmf-dist/fonts/ty
 pe1/urw/palatino/uplb8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw
 /palatino/uplr8a.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/urw/palati
 no/uplri8a.pfb>
-Output written on tsp_ga_report.pdf (6 pages, 174258 bytes).
+Output written on tsp_ga_report.pdf (6 pages, 175003 bytes).
 PDF statistics:
- 186 PDF objects out of 1000 (max. 8388607)
- 163 compressed objects within 2 object streams
- 43 named destinations out of 1000 (max. 500000)
- 72837 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 191 PDF objects out of 1000 (max. 8388607)
+ 168 compressed objects within 2 object streams
+ 45 named destinations out of 1000 (max. 500000)
+ 72845 words of extra memory for PDF output out of 74296 (max. 10000000)
 

@@ -92,7 +92,7 @@
   
   \pretitle{\begin{center}\Huge\bfseries} % Article title formatting
   \posttitle{\end{center}} % Article title closing formatting
-  \title{Solving the Traveling Salesman Problem: a multithreaded genetic approach} % Article title
+  \title{Solving the Traveling Salesman Problem: a multithreaded approach with evolutionary genetic algorithms} % Article title
   \author{%
   \textsc{Ibsan Acis Castillo Vitar} \\[1ex] % Your name
   \normalsize School of Sciences and Engineering, Tecnológico de Monterrey, Puebla Campus \\ % Your institution
@@ -288,10 +288,34 @@ As we set the amount of chromosome generations $G$ as $10000$ and the amount of 
   
   \section{Results}
   
-  The following table shows a comparison across four sets of input ranging from 10 to 25 cities each.\linebreak
+  
+\subsection{Solutions found}
+
+The following table shows a comparison of the solutions found across four sets of input ranging from 10 to 25 cities each.\linebreak
+
+\taburowcolors[2]{white .. black!20}
+  \sffamily\footnotesize
+  \tabulinesep=6pt
+  \begin{table}[H]
+  \begin{tabu}{|>{\cellcolor{black!60}\color{white}}r|X[cm]|X[cm]|}
+  \hline
+  \rowcolor{black!80}\strut  & \multicolumn{2}{c|}{\color{white} Min. Distance (km)}  \\
+  \rowcolor{black!80}\strut Input size (cities) & \color{white}1 core & \color{white}4 cores\\
+  10 & 46657.151 & 46657.151\\
+  \cline{2-3}
+  15 & 48277.834 & 48277.834\\ 
+  \hline
+  20 & \textcolor{red}{56045.310} & 56012.943\\
+  \cline{2-3}
+  25 & \textcolor{red}{81808.710} & 70513.449\\
+  \hline
+  \end{tabu}
+    \caption{Comparison of solutions found across all four sets of input}
+  \end{table}
+  
+  The following table shows a comparison of the CPU time across four sets of input ranging from 10 to 25 cities each.\linebreak
   
   \taburowcolors[2]{white .. black!20}
-  
   \sffamily\footnotesize
   \tabulinesep=6pt
   \begin{table}[H]
@@ -315,7 +339,7 @@ As we set the amount of chromosome generations $G$ as $10000$ and the amount of 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.40\textwidth]{output1_1_singleThread_10Cities.jpg}
+\includegraphics[width=0.50\textwidth]{output1_1_singleThread_10Cities.jpg}
 \caption{Output of the single-threaded program with $10$ cities as input}
 \end{figure} 
 
@@ -327,37 +351,37 @@ As we set the amount of chromosome generations $G$ as $10000$ and the amount of 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.40\textwidth]{output2_1_singleThread_15Cities.jpg}
+\includegraphics[width=0.50\textwidth]{output2_1_singleThread_15Cities.jpg}
 \caption{Output of the single-threaded program with $15$ cities as input}
 \end{figure} 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.40\textwidth]{output2_2_multiThread_15Cities.jpg}
+\includegraphics[width=0.50\textwidth]{output2_2_multiThread_15Cities.jpg}
 \caption{Output of the multi-threaded program with $4$ cores and $15$ cities as input}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.40\textwidth]{output3_1_singleThread_20Cities.jpg}
+\includegraphics[width=0.50\textwidth]{output3_1_singleThread_20Cities.jpg}
 \caption{Output of the single-threaded program with $20$ cities as input}
 \end{figure} 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.40\textwidth]{output3_2_multiThread_20Cities.jpg}
+\includegraphics[width=0.50\textwidth]{output3_2_multiThread_20Cities.jpg}
 \caption{Output of the multi-threaded program with $4$ cores and $20$ cities as input}
 \end{figure} 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.40\textwidth]{output4_1_singleThread_25Cities.jpg}
+\includegraphics[width=0.50\textwidth]{output4_1_singleThread_25Cities.jpg}
 \caption{Output of the single-threaded program with $25$ cities as input}
 \end{figure} 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.40\textwidth]{output4_2_multiThread_25Cities.jpg}
+\includegraphics[width=0.50\textwidth]{output4_2_multiThread_25Cities.jpg}
 \caption{Output of the multi-threaded program with $4$ cores and $25$ cities as input}
 \end{figure} 
   
@@ -365,7 +389,7 @@ As we set the amount of chromosome generations $G$ as $10000$ and the amount of 
   
 \section{Discussion}
   
-We can see that in all four cases, the multithreaded approach is around twice as fast as the single-threaded one, taking into account that the former version of the program makes finds four solutions separately, while the latter only finds one. Nevertheless, both versions of the program always get the same solution in terms of the total distance of the permutation that was found, even if the permutation of one of the versions is a rotation of that of the other.\linebreak
+We can see that in all four cases, the multi-threaded approach is around twice as fast as the single-threaded one, taking into account that the former version of the program finds four solutions separately, while the latter only finds one. It is also important to notice that both versions of the program get the same answers for the first two input cases, whereas the multi-threaded approach clearly beats the single-threaded one for the last two cases. 
 
 At first, we hadn't considered rotations of the same cycle as possibilities to reach the same output. However, after a few tests we discovered this, although we also discovered cases in which a two different permutations (none of which is a cycle of the other) reached the same total distance, thus being both valid solutions.
 %-------------------------------------------------
