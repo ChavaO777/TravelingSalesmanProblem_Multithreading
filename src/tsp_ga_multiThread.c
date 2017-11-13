@@ -515,7 +515,7 @@ void performMutation(int size, int* arr, int seedParameter){
  * 
  * @return a child permutation created by crossing over the parent's permutations
  */
-int* createPermutationFromParents(struct chromosome c1, struct chromosome c2){
+int* createPermutationFromParents(struct chromosome c1, struct chromosome c2, int childId, int totalChromosomes){
 
     //An array of primes to add randomness to the crossover
     int primes[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47};
@@ -523,12 +523,10 @@ int* createPermutationFromParents(struct chromosome c1, struct chromosome c2){
     //Create the cross over
     int* childPermutation = performOrderedCrossover(c1.citiesAmount, c1.citiesPermutation, c2.citiesPermutation, c1.generation*c2.generation + primes[rand()%15]);
     
-    //Total mutations to be performed
-    const int totalMutations = 1 + rand()%3;
+    //Perform a mutation only on one chromosome per totalChromosomes chromosomes
+    if(childId%totalChromosomes == totalChromosomes/2){
 
-    //Perform mutations in the array returned by the crossover
-    for(int i = 0; i < totalMutations; i++){
-
+        //Perform a mutation in the array returned by the crossover
         performMutation(c1.citiesAmount, childPermutation, c1.generation*c2.generation + primes[rand()%15]);
     }
     
@@ -583,12 +581,12 @@ void createRandomChromosome(struct chromosome* ptrChromosome, int seedParameter,
  * @param citiesArray the array of cities for calculating the total distance of a chromosome
  * @return the child chromosome
  */ 
-struct chromosome createChildChromosome(struct chromosome c1, struct chromosome c2, int generation, int amountOfCities, struct city citiesArray[]){
+struct chromosome createChildChromosome(struct chromosome c1, struct chromosome c2, int totalChromosomes, int childId, int generation, int amountOfCities, struct city citiesArray[]){
 
     // Declare a new chromosome
     struct chromosome childChromosome;
     // Create a child permutation for the child chromosome
-    childChromosome.citiesPermutation = createPermutationFromParents(c1, c2);
+    childChromosome.citiesPermutation = createPermutationFromParents(c1, c2, childId, totalChromosomes);
     // Assign the amount of cities
     childChromosome.citiesAmount = c1.citiesAmount;
     // Assign the generation of the child chromosome
@@ -675,7 +673,7 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
                 //Declare the index of the child chromosome
                 int childChromosomeIndex = k*bestToChromosomesToBeTaken + j;
                 //Create the child chromosome
-                chromosomesArray[childChromosomeIndex] = createChildChromosome(chromosomesArray[parent1Index], chromosomesArray[parent2Index], i, amountOfCities, citiesArray);
+                chromosomesArray[childChromosomeIndex] = createChildChromosome(chromosomesArray[parent1Index], chromosomesArray[parent2Index], childChromosomeIndex, totalChromosomes, i, amountOfCities, citiesArray);
             }
         }
     }
@@ -739,15 +737,15 @@ int main(){
     args.citiesList = citiesArray;   
     pthread_t tid[numbersProcessors];//declaration for threads
     
-    for(int threadFor = 0; threadFor < numbersProcessors; threadFor++){
+    for(int i = 0; i < numbersProcessors; i++){
         
-        args.core = threadFor;//set the procesor number
-        pthread_create(&(tid[threadFor]), NULL, threadSolution, &args);
+        args.core = i;//set the procesor number
+        pthread_create(&(tid[i]), NULL, threadSolution, &args);
     }   
     
-    for(int threadFor = 0; threadFor < numbersProcessors;threadFor++){
+    for(int i = 0; i < numbersProcessors; i++){
         
-        pthread_join(tid[threadFor], NULL);
+        pthread_join(tid[i], NULL);
     }   
   
     return 0;

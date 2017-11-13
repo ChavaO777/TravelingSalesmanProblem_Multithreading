@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h>
 
 #define EARTH_RADIUS_KM 6371 // authalic radius based on/extracted from surface area;
 
@@ -498,7 +499,7 @@ void performMutation(int size, int* arr, int seedParameter){
  * 
  * @return a child permutation created by crossing over the parent's permutations
  */
-int* createPermutationFromParents(struct chromosome c1, struct chromosome c2){
+int* createPermutationFromParents(struct chromosome c1, struct chromosome c2, int childId, int totalChromosomes){
 
     //An array of primes to add randomness to the crossover
     int primes[] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47};
@@ -506,12 +507,10 @@ int* createPermutationFromParents(struct chromosome c1, struct chromosome c2){
     //Create the cross over
     int* childPermutation = performOrderedCrossover(c1.citiesAmount, c1.citiesPermutation, c2.citiesPermutation, c1.generation*c2.generation + primes[rand()%15]);
     
-    //Total mutations to be performed
-    const int totalMutations = 1 + rand()%3;
+    //Perform a mutation only on one chromosome per totalChromosomes chromosomes
+    if(childId%totalChromosomes == totalChromosomes/2){
 
-    //Perform mutations in the array returned by the crossover
-    for(int i = 0; i < totalMutations; i++){
-
+        //Perform a mutation in the array returned by the crossover
         performMutation(c1.citiesAmount, childPermutation, c1.generation*c2.generation + primes[rand()%15]);
     }
     
@@ -566,12 +565,12 @@ void createRandomChromosome(struct chromosome* ptrChromosome, int seedParameter,
  * @param citiesArray the array of cities for calculating the total distance of a chromosome
  * @return the child chromosome
  */ 
-struct chromosome createChildChromosome(struct chromosome c1, struct chromosome c2, int generation, int amountOfCities, struct city citiesArray[]){
+struct chromosome createChildChromosome(struct chromosome c1, struct chromosome c2, int totalChromosomes, int childId, int generation, int amountOfCities, struct city citiesArray[]){
 
     // Declare a new chromosome
     struct chromosome childChromosome;
     // Create a child permutation for the child chromosome
-    childChromosome.citiesPermutation = createPermutationFromParents(c1, c2);
+    childChromosome.citiesPermutation = createPermutationFromParents(c1, c2, childId, totalChromosomes);
     // Assign the amount of cities
     childChromosome.citiesAmount = c1.citiesAmount;
     // Assign the generation of the child chromosome
@@ -657,7 +656,7 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
                 //Declare the index of the child chromosome
                 int childChromosomeIndex = k*bestToChromosomesToBeTaken + j;
                 //Create the child chromosome
-                chromosomesArray[childChromosomeIndex] = createChildChromosome(chromosomesArray[parent1Index], chromosomesArray[parent2Index], i, amountOfCities, citiesArray);
+                chromosomesArray[childChromosomeIndex] = createChildChromosome(chromosomesArray[parent1Index], chromosomesArray[parent2Index], totalChromosomes, childChromosomeIndex, i, amountOfCities, citiesArray);
             }
         }
     }
@@ -666,7 +665,7 @@ struct chromosome solve(int amountOfCities, struct city citiesArray[]){
     qsort(chromosomesArray, totalChromosomes, sizeof(struct chromosome), cmpfunc);
 
     //Display the final chromosome array
-    displayChromosomesArray(totalChromosomes, chromosomesArray);
+    // displayChromosomesArray(totalChromosomes, chromosomesArray);
 
     //Return the first element of the array after being sorted, i.e. the chromosome with the least distance
     return chromosomesArray[0];
@@ -679,10 +678,16 @@ int main(){
     struct city citiesArray[numberCities];//array of structures of city
     readInput(citiesArray, numberCities);//read the values of latitude and longitude in the file
     displayCities(citiesArray, numberCities);//Display the cities information.
-    struct chromosome shortestPathChromosome = solve(numberCities, citiesArray);
-    
-    printf("Winning chromosome:");
-    displayChromosome(shortestPathChromosome);
+    struct chromosome shortestPathChromosome;
+    const int totalSolutions = 4;
+
+    for(int i = 0; i < totalSolutions; i++){
+
+        shortestPathChromosome = solve(numberCities, citiesArray);
+        printf("Winning chromosome:");
+        displayChromosome(shortestPathChromosome);
+        sleep(1);
+    }
 
     return 0;
 }//end of the main function
