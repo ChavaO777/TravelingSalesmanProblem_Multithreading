@@ -63,6 +63,7 @@
   
   \usepackage{xcolor}
   \usepackage{tabu}
+  \usepackage{hyperref}  
   \usepackage{colortbl}
   
   \usepackage{amsmath}
@@ -202,7 +203,7 @@
           {\fontsize{6}{6}\selectfont \begin{algorithmic}[1]
               \Procedure{Genetic Algorithm with ordered crossover}{}
               \State Set $C$, the total amount of chromosomes per generation
-              \State Create $K$ chromosomes each with a random permutation
+              \State Create $C$ chromosomes each with a random permutation
               \State Set $G$, the total amount of chromosome generations 
               \For{$i\gets 0, G - 1$}  
                 \State Sort the array with the $C$ chromosomes at generation $i$
@@ -261,28 +262,53 @@
               \EndProcedure
           \end{algorithmic}}
   \end{algorithm}
+
+\subsection{Complexity Analysis}
+
+\begin{table}[H]
+\centering
+\fontsize{7}{7}\selectfont
+\label{my-label}
+\begin{tabular}{|l|l|l|l|}
+\hline
+ \textbf{ID} & \textbf{Operation} & \textbf{Time Complexity} \\ \hline
+ 1 & Creating $C$ random chromosomes & $\mathcal{O}(C^2N)$ \\ \hline
+ 2 & Sorting the array of $C$ chromosomes & $\mathcal{O}(C\log{C})$ \\ \hline
+ 3 & Creating $\frac{3C}{4}$ child chromosomes & $\mathcal{O}(CN)$ \\ \hline
+ 4 & Multithreading & $\mathcal{O}(P)$ \\ \hline
+\end{tabular}
+\caption{Complexity Analysis of the Algorithm}
+\end{table}
+
+We can see that operation 1 has the highest time complexity. Thus,  $\mathcal{O}(C^2N)$ is the complexity of our algorithm.
   
   %------------------------------------------------
   
   \section{Results}
   
+  The following table shows a comparison across four sets of input ranging from 10 to 25 cities each.\linebreak
+  
   \taburowcolors[2]{white .. black!20}
   
   \sffamily\footnotesize
   \tabulinesep=6pt
+  \begin{table}[H]
   \begin{tabu}{|>{\cellcolor{black!60}\color{white}}r|X[cm]|X[cm]|}
   \hline
   \rowcolor{black!80}\strut  & \multicolumn{2}{c|}{\color{white}CPU Time (s)}  \\
-  \rowcolor{black!80}\strut Number of Cities & \color{white}1 core & \color{white}4 cores\\
+  \rowcolor{black!80}\strut Input size (cities) & \color{white}1 core & \color{white}4 cores\\
   10 & 17 & 8\\
   \cline{2-3}
-  15 & 19 & 10\\
+  15 & 19 & 10\\ 
   \hline
   20 & 22 & 14\\
   \cline{2-3}
   25 & 25 & 13\\
   \hline
   \end{tabu}
+    \caption{Performance comparison across four sets of input}
+  \end{table}
+%   \footnotetext{Table 1. Performance comparison across four sets of input}
   
   %------------------------------------------------
   
