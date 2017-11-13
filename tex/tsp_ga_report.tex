@@ -126,7 +126,7 @@
   
   \section{Introduction}
   
-  \lettrine[nindent=0em,lines=3]{T}he goal of this project is to obtain the optimal solution for the Traveling Salesman Problem, a problem that consists of a salesman and a set of cities which have to be visited. The salesman has to visit each city once and return to the same city after the last one has been visited.
+  \lettrine[nindent=0em,lines=3]{T}he goal of this project is to obtain the optimal solution for the Traveling Salesman Problem, a problem that consists of a salesman and a set of cities which have to be visited. The salesman has to visit each city once and return to the same city after the last one has been visited.\linebreak
   
   Consider the following image. The problem lies in finding the shortest path visiting all vertices once. For example the path $1$:${A,C;D,B,A}$ and $2$:${A,B,C,D,A}$ visit all the vertices once, but path $1$ has a length of $108$ while path $2$ has a length of $97$.\linebreak
   
@@ -160,9 +160,9 @@
       \path[-] (C) edge  node[] {12} (D);
   \end{tikzpicture}
       
-  The number of cities in this problem is $4$, and there are $4! = 24$ possible routes, which makes the problem exponentially complex as the number of cities grow.\linebreak
+  The number of cities in this problem is $4$, and there are $4! = 24$ possible routes, which makes the problem very complex as the number of cities grow.\linebreak
   
-  We approach this problem with genetic algorithms. We receive the number of cities and its geographic coordinates. We calculate the distance between every city $(n \times n)$, and a permutation of the $N$ cities.\linebreak
+  We approach this problem with evolutionary genetic algorithms. We receive the number of cities and their geographic coordinates. We calculate the distance between cities using the Haversine distance formula.\linebreak
   
   %------------------------------------------------
   
@@ -174,16 +174,16 @@
   c(\pi) = \sum_{i=1}^{n} C_{i\pi(i)}
   \end{equation}
   
-  where $c(\pi)$ is the length of the permutation $\pi$, computed through a distance metric. In our case, the metric is the Haversine function to calculate the distance between two fixed points on Earth given the latitude and longitude of each point.
+  where $c(\pi)$ is the length of the permutation $\pi$, computed through a distance metric. In our case, the metric is the Haversine formula to calculate the distance between two fixed points on Earth given the latitude and longitude of each point.
   %------------------------------------------------
   
   \section{Related Work}
   
-  The traveling salesman problem was first considered mathematically in the 1930s by Merrill Floyd. In the 1950s and 1960s the problem became increasingly popular in scientific circles in Europe and the USA. Notable contributions were made by George Dantzig, Delbert Ray Fulkerson and Selmer M. Johnson; they expressed the problem as an integer linear problem and developed the cutting plane method.\linebreak
+  The Traveling Salesman Problem was first considered mathematically in the 1930s by Merrill Floyd. In the 1950s and 1960s, the problem became increasingly popular in scientific circles in Europe and the USA. Notable contributions were made by George Dantzig, Delbert Ray Fulkerson and Selmer M. Johnson; they expressed the problem as an integer linear programming problem and developed the cutting plane method.\linebreak
   
   In the following decades, the problem was studied by many researchers from mathematics, computer science, chemistry, physics and other sciences.\linebreak
   
-  A chemist, V. Černý, created a thermodynamical approach to the Traveling Salesman Problem. He created a Monte Carlo algorithm to find approximate solutions of the TSP. The algorithm generates random permutations, with probability depending on the length of the corresponding route. Reasoning by analogy with statistical thermodynamics, we use the probability given by the Boltzmann-Gibbs distribution. Using that method they could get very close to the optimal solution.\linebreak
+  A chemist, V. Černý, created a thermodynamical approach to the Traveling Salesman Problem. He created a Monte Carlo algorithm to find approximate solutions of the TSP. The algorithm generates random permutations, with probability depending on the length of the corresponding route. Reasoning by analogy with statistical thermodynamics, it uses the probability given by the Boltzmann-Gibbs distribution. Using that method they could get very close to the optimal solution.\linebreak
   
   %------------------------------------------------
   
