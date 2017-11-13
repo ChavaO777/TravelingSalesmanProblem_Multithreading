@@ -245,7 +245,7 @@
           \end{algorithmic}}
   \end{algorithm}
   
-  \subsection{Multithreading}
+  \subsubsection{Multithreading}
   
   \begin{algorithm}
           \caption{Multithreading}\label{oc}
@@ -263,7 +263,7 @@
           \end{algorithmic}}
   \end{algorithm}
 
-\subsection{Complexity Analysis}
+\subsection{Time Complexity Analysis}
 
 \begin{table}[H]
 \centering
@@ -271,16 +271,16 @@
 \label{my-label}
 \begin{tabular}{|l|l|l|l|}
 \hline
- \textbf{ID} & \textbf{Operation} & \textbf{Time Complexity} \\ \hline
+ \textbf{ID} & \textbf{Operation} & \textbf{Complexity} \\ \hline
  1 & Creating $C$ random chromosomes & $\mathcal{O}(C^2N)$ \\ \hline
  2 & Sorting the array of $C$ chromosomes & $\mathcal{O}(C\log{C})$ \\ \hline
- 3 & Creating $\frac{3C}{4}$ child chromosomes & $\mathcal{O}(CN)$ \\ \hline
+ 3 & Creating $\frac{3C}{4}$ child chromosomes $G$ times & $\mathcal{O}(CNG)$ \\ \hline
  4 & Multithreading & $\mathcal{O}(P)$ \\ \hline
 \end{tabular}
 \caption{Complexity Analysis of the Algorithm}
 \end{table}
 
-We can see that operation 1 has the highest time complexity. Thus,  $\mathcal{O}(C^2N)$ is the complexity of our algorithm.
+As we set the amount of chromosome generations $G$ as $10000$ and the amount of chromosomes per generation $C$ as $100$ in all cases, we can see that operation $3$ has the highest time complexity. Thus,  $\mathcal{O}(CNG)$ is the complexity of our algorithm, where $C$, $N$ and $G$ are the amount of chromosomes per generation, the amount of cities in the input and the amount of generations, respectively.
   
   %------------------------------------------------
   
