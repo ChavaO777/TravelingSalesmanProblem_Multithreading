@@ -27,12 +27,30 @@ City id: 22; Latitude: -74.566890; Longitude: 83.218730
 City id: 23; Latitude: 13.023830; Longitude: 90.426980
 City id: 24; Latitude: 32.690490; Longitude: 18.201410
 
-Starting of the program, start_t = 6718
+Starting of the program, start_t = 6387
 Winning chromosome:
 citiesAmount = 25
-citiesPermutation = 19 6 3 9 13 12 21 15 24 17 4 7 2 1 23 0 10 18 5 22 8 16 14 20 11 
-totalDistance = 72830.777059
-generation = 2667
+citiesPermutation = 23 1 17 24 15 12 13 8 16 9 14 20 3 11 19 21 4 7 2 0 10 18 5 6 22 
+totalDistance = 81490.806992
+generation = 5505
 
-Total time taken by CPU: 25 seconds
+
+citiesAmount = 25
+citiesPermutation = 24 17 7 4 15 21 12 20 11 3 14 9 16 8 13 2 1 18 5 10 0 23 22 6 19 
+totalDistance = 81808.393386
+generation = 1753
+
+
+citiesAmount = 25
+citiesPermutation = 13 12 3 16 8 22 6 19 11 20 14 9 21 15 24 17 2 23 0 10 5 18 1 7 4 
+totalDistance = 71788.165607
+generation = 4014
+
+
+citiesAmount = 25
+citiesPermutation = 24 15 21 20 11 19 6 22 8 16 3 14 9 12 13 4 7 2 23 0 10 5 18 1 17 
+totalDistance = 70661.752129
+generation = 6211
+
+Total time taken by CPU: 101 seconds
 Exiting of the program...

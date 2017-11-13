@@ -12,12 +12,30 @@ City id: 7; Latitude: 18.829810; Longitude: 53.899750
 City id: 8; Latitude: -29.589520; Longitude: 24.293440
 City id: 9; Latitude: -2.320290; Longitude: 10.718970
 
-Starting of the program, start_t = 4776
+Starting of the program, start_t = 6473
 Winning chromosome:
 citiesAmount = 10
-citiesPermutation = 2 1 0 5 6 3 9 8 4 7 
+citiesPermutation = 3 6 5 0 1 2 7 4 8 9 
 totalDistance = 46657.150970
-generation = 150
+generation = 853
 
-Total time taken by CPU: 17 seconds
+
+citiesAmount = 10
+citiesPermutation = 3 6 5 0 1 2 7 4 8 9 
+totalDistance = 46657.150970
+generation = 37
+
+
+citiesAmount = 10
+citiesPermutation = 0 1 2 7 4 8 9 3 6 5 
+totalDistance = 46657.150970
+generation = 314
+
+
+citiesAmount = 10
+citiesPermutation = 3 6 5 0 1 2 7 4 8 9 
+totalDistance = 46657.150970
+generation = 31
+
+Total time taken by CPU: 67 seconds
 Exiting of the program...
