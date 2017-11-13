@@ -1,6 +1,6 @@
 # Fdb version 3
-["pdflatex"] 1510591485 "/Users/salvador/Desktop/TravelingSalesmanProblem_Multithreading/tex/tsp_ga_report.tex" "tsp_ga_report.pdf" "tsp_ga_report" 1510591486
-  "/Users/salvador/Desktop/TravelingSalesmanProblem_Multithreading/tex/tsp_ga_report.tex" 1510591483 16697 93dfb99a5b23bbd301425c3ea491872c ""
+["pdflatex"] 1510593053 "/Users/salvador/Desktop/TravelingSalesmanProblem_Multithreading/tex/tsp_ga_report.tex" "tsp_ga_report.pdf" "tsp_ga_report" 1510593054
+  "/Users/salvador/Desktop/TravelingSalesmanProblem_Multithreading/tex/tsp_ga_report.tex" 1510593052 17952 0bf378a39e471192551a34c92a199e68 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1480098666 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
@@ -34,7 +34,6 @@
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1480098733 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfcc1200.pfb" 1480098737 108594 1a08a22405bc37650b977f219cc3597d ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfss0800.pfb" 1480098737 95441 e322369dec2b43bb317c506a4a44deaa ""
-  "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/cm-super/sfss1200.pfb" 1480098737 95792 fb800ffa2babe7bd5fafc1817d8f1313 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/fpl/fplrc8a.pfb" 1480098740 77105 19d9d05ede65ce09851408c7abcebd5f ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb" 1480098742 9356 a3851bc942e9b6995883193472ba1847 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/type1/public/mathpazo/fplmri.pfb" 1480098742 15213 d999bbe8bd9c8f231f3f66a737c76478 ""
@@ -206,11 +205,11 @@
   "/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1495593472 2350277 a699055bee05bf8a40b0504752487295 ""
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1495593487 4129592 0e6cfee100d68e6d96b92c0258f2ff73 ""
   "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
-  "tsp_ga_report.aux" 1510591485 3572 25c3f7f12c48c0a81ff3cb32371cef92 ""
-  "tsp_ga_report.out" 1510591485 1022 44f6eba38f08c616852675e3a3440491 ""
-  "tsp_ga_report.tex" 1510591483 16697 93dfb99a5b23bbd301425c3ea491872c ""
+  "tsp_ga_report.aux" 1510593054 3381 ab442d88bdeae6070420efebdeb1c2ff ""
+  "tsp_ga_report.out" 1510593054 894 c6a2504267657373e4509befdbd78995 ""
+  "tsp_ga_report.tex" 1510593052 17952 0bf378a39e471192551a34c92a199e68 ""
   (generated)
-  "tsp_ga_report.log"
-  "tsp_ga_report.aux"
-  "tsp_ga_report.pdf"
   "tsp_ga_report.out"
+  "tsp_ga_report.aux"
+  "tsp_ga_report.log"
+  "tsp_ga_report.pdf"
