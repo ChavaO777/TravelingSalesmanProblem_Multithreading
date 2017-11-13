@@ -303,7 +303,7 @@ As we set the amount of chromosome generations $G$ as $10000$ and the amount of 
   \cline{2-3}
   15 & 48277.834 & 48277.834\\ 
   \hline
-  20 & 55563.551 & \textcolor{red}{56012.943}\\
+  20 & 55175.629 & \textcolor{red}{56012.943}\\
   \cline{2-3}
   25 & 70104.307 & \textcolor{red}{70513.449}\\
   \hline
@@ -385,7 +385,7 @@ As we set the amount of chromosome generations $G$ as $10000$ and the amount of 
   
 \section{Discussion}
   
-We can see that in all four cases, the multi-threaded approach is around six times faster than the single-threaded one, taking into account that the former version of the program finds four solutions separately, while the latter finds four consecutively. It is also important to notice that both versions of the program get the same answers for the first two input cases, whereas the single-threaded approach beats the multi-threaded one for the last two cases by margins of 0.809$\%$ and $0.584\%$, respectively. We suspect that these last differences in the results have to do with the random nature of the algorithm. Further analysis and testing should clarify if our idea is true.
+We can see that in all four cases, the multi-threaded approach is around six times faster than the single-threaded one, taking into account that the former version of the program finds four solutions separately, while the latter finds four consecutively. It is also important to notice that both versions of the program get the same answers for the first two input cases, whereas the single-threaded approach beats the multi-threaded one for the last two cases by margins of 0.809$\%$ and $0.584\%$, respectively. We suspect that these last differences in the results have to do with the random nature of the algorithm. Besides, with the single-thread version we have four cores working on the same problem, whereas with the multi-thread version each thread is working on its own. Further analysis and testing should clarify if our idea is true. In the end, it's a tradeoff between speed and accuracy.\linebreak
 
 At first, we hadn't considered rotations of the same cycle as possibilities to reach the same output. However, after a few tests we discovered this, although we also discovered cases in which a two different permutations (none of which is a cycle of the other) reached the same total distance, thus being both valid solutions.
 %-------------------------------------------------
