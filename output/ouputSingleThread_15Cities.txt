@@ -1,0 +1,46 @@
+
+The input is the following:
+
+City id: 0; Latitude: 18.023830; Longitude: 95.426980
+City id: 1; Latitude: 38.690490; Longitude: 83.201410
+City id: 2; Latitude: 26.731130; Longitude: 59.082690
+City id: 3; Latitude: -14.566890; Longitude: 2.218730
+City id: 4; Latitude: 15.480680; Longitude: 51.416860
+City id: 5; Latitude: 18.303560; Longitude: 169.232840
+City id: 6; Latitude: -11.508390; Longitude: -85.326270
+City id: 7; Latitude: 18.829810; Longitude: 53.899750
+City id: 8; Latitude: -29.589520; Longitude: 24.293440
+City id: 9; Latitude: -4.220290; Longitude: 10.718970
+City id: 10; Latitude: 12.303560; Longitude: 129.232840
+City id: 11; Latitude: -9.508390; Longitude: -15.326270
+City id: 12; Latitude: 2.829810; Longitude: 23.899750
+City id: 13; Latitude: -3.589520; Longitude: 32.293440
+City id: 14; Latitude: -4.320290; Longitude: 9.718970
+
+Starting of the program, start_t = 5863
+Winning chromosome:
+citiesAmount = 15
+citiesPermutation = 10 5 6 11 3 8 14 9 12 13 4 7 2 1 0 
+totalDistance = 48277.833529
+generation = 220
+
+
+citiesAmount = 15
+citiesPermutation = 6 5 10 0 1 2 7 4 13 12 9 14 8 3 11 
+totalDistance = 48277.833529
+generation = 1691
+
+
+citiesAmount = 15
+citiesPermutation = 11 3 8 14 9 12 13 4 7 2 1 0 10 5 6 
+totalDistance = 48277.833529
+generation = 3756
+
+
+citiesAmount = 15
+citiesPermutation = 2 1 0 10 5 6 11 3 8 14 9 12 13 4 7 
+totalDistance = 48277.833529
+generation = 2892
+
+Total time taken by CPU: 79 seconds
+Exiting of the program...
