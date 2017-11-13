@@ -65,6 +65,10 @@
   \usepackage{tabu}
   \usepackage{colortbl}
   
+  \usepackage{amsmath}
+  \usepackage{algorithm}
+  \usepackage[noend]{algpseudocode}
+  
   \usepackage{selinput}
   \SelectInputMappings{%
     aacute={á},
@@ -189,38 +193,70 @@
   \subsection{Algorithm} 
   The algorithm used to solve this problem is as follows:
   
+  \subsubsection{Genetic Algorithm with Ordered Crossover}
+  
+  \begin{algorithm}
+          \caption{Genetic Algorithm with ordered crossover}\label{ga}
+          {\fontsize{6}{6}\selectfont \begin{algorithmic}[1]
+              \Procedure{Genetic Algorithm with ordered crossover}{}
+              \State Set $C$, the total amount of chromosomes per generation
+              \State Create $K$ chromosomes each with a random permutation
+              \State Set $G$, the total amount of chromosome generations 
+              \For{$i\gets 0, G$}  
+                \State Sort the array with the $C$ chromosomes at generation $i$
+                  \State Let the first $\frac{C}{4}$ \textit{elite} chromosomes live to the next generation
+                  \State Create $\frac{3C}{4}$ child chromosomes from the $\frac{C}{4}$ \textit{elite} chromosomes
+            
+              \EndFor
+              \State Sort the array of chromosomes one last time
+              \State \textbf{return} the first chromosome in the array
+              \EndProcedure
+          \end{algorithmic}}
+      \end{algorithm}
+  
+  Use the following pairing schema to generate child chromosomes:
+  
   \begin{enumerate}
-  \item Read the input and store the cities’ information
-  \item Set $C$, the total amount of chromosomes the program will work with at any given generation
-  \item Create $K$ chromosomes each with a random permutation
-  \item Set $G$, the total amount of generations of chromosomes that the program will generate.
-  \item For every generation
-  \begin{enumerate}
-  \item Sort the array with the $C$ chromosomes at generation $i$
-  \item Let the first $\frac{C}{4}$ chromosomes live to the next generation
-  \item Create $\frac{3C}{4}$ child chromosomes from the $\frac{C}{4}$ chromosomes that passed into the next generation.
-  \item Use the following pairing schema to generate child chromosomes:
-  \item The $i$-th chromosome with the $(i + 1)$-th chromosome modulo $\frac{C}{4}$
-  \item The $i$-th chromosome with the $(i + 2)$-th chromosome modulo $\frac{C}{4}$
-  \item The $i$-th chromosome with the $(i + 3)$-th chromosome modulo $\frac{C}{4}$
-  \item Create every child chromosome by performing an ordered crossover on the parent chromosomes
-  \item Pick a subset of the first parent’s chromosomes and pass them directly to the child chromosome at the same positions 
-  \item  Fill in the remaining spaces of the missing chromosomes with the other parent’s chromosomes, making sure no number appears twice in the permutation
-  \end{enumerate}
-  \item Sort the array of chromosomes one last time
-  \item  Return the first chromosome, i.e. the one with the least total distance
-  \end{enumerate}
+  \item The $i$-th chromosome with the $(i + 1)$-th chromosome
+  \item The $i$-th chromosome with the $(i + 2)$-th chromosome
+  \item The $i$-th chromosome with the $(i + 3)$-th chromosome
+  \end{enumerate} 
+  
+  \textbf{Note: all chromosome indexes are taken modulo $\frac{C}{4}$.}
+  
+  \subsubsection{Ordered Crossover}
+  
+  Perform the ordered crossover in the following fashion:
+  
+  \begin{algorithm}
+          \caption{Ordered crossover}\label{oc}
+          {\fontsize{6}{6}\selectfont \begin{algorithmic}[1]
+              \Procedure{Ordered crossover}{permutation1, permutation2}
+              \State Select a random range $\big[i, j\big]$ of the first parent's permutation of cities
+              \State Place those $(j - i + 1)$ cities in the same range of the child permutation
+              \State Get the remaining cities from the other parent’s permutation in the same order in which they appear
+              \State \textbf{return} the new permutation
+              \EndProcedure
+          \end{algorithmic}}
+  \end{algorithm}
   
   \subsection{Multithreading}
-  \begin{enumerate}
-  \item First set the number of processors.
-  \item Create a struct that will contain all the data what the thread will need to work
-  \item with pthread we create an array of threads and with pthread create star the threads
-  \item all the threads have the function threadSolution where they will solve the problem
-  \item In ThreadSolution star with assigning at each thread a core, if the core that we want to assign to the thread and do not exist , then the thread finish in that moment
-  \item The thread will create his own set of chromosomes and solve the problem with the function Solve.
-  \item In the end the thread will print the chromosome with the shortest path that the core calculated,
-  \end{enumerate}
+  
+  \begin{algorithm}
+          \caption{Multithreading}\label{oc}
+          {\fontsize{7}{7}\selectfont \begin{algorithmic}[1]
+              \Procedure{Multithreading}{}
+              \State Set $P$, the number of processors to be used.
+              \State Create an array of $P$ threads
+              \For{$i\gets 0, P$}  
+                \State Start the $i$-th thread
+                \State Let the $i$-th thread execute $threadSolution\big(\big)$ 
+                \State Let the $i$-th thread call $solve\big(\big)$
+                \State Let the $i$-th thread print its winning chromosome
+              \EndFor
+              \EndProcedure
+          \end{algorithmic}}
+  \end{algorithm}
   
   %------------------------------------------------
   
