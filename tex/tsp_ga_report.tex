@@ -204,7 +204,7 @@
               \State Set $C$, the total amount of chromosomes per generation
               \State Create $K$ chromosomes each with a random permutation
               \State Set $G$, the total amount of chromosome generations 
-              \For{$i\gets 0, G$}  
+              \For{$i\gets 0, G - 1$}  
                 \State Sort the array with the $C$ chromosomes at generation $i$
                   \State Let the first $\frac{C}{4}$ \textit{elite} chromosomes live to the next generation
                   \State Create $\frac{3C}{4}$ child chromosomes from the $\frac{C}{4}$ \textit{elite} chromosomes
@@ -252,7 +252,7 @@
               \Procedure{Multithreading}{}
               \State Set $P$, the number of processors to be used.
               \State Create an array of $P$ threads
-              \For{$i\gets 0, P$}  
+              \For{$i\gets 0, P - 1$}  
                 \State Start the $i$-th thread
                 \State Let the $i$-th thread execute $threadSolution\big(\big)$ 
                 \State Let the $i$-th thread call $solve\big(\big)$
