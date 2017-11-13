@@ -1,0 +1,38 @@
+
+The input is the following:
+
+City id: 0; Latitude: 18.023830; Longitude: 95.426980
+City id: 1; Latitude: 38.690490; Longitude: 83.201410
+City id: 2; Latitude: 26.731130; Longitude: 59.082690
+City id: 3; Latitude: -14.566890; Longitude: 2.218730
+City id: 4; Latitude: 15.480680; Longitude: 51.416860
+City id: 5; Latitude: 18.303560; Longitude: 169.232840
+City id: 6; Latitude: -11.508390; Longitude: -85.326270
+City id: 7; Latitude: 18.829810; Longitude: 53.899750
+City id: 8; Latitude: -29.589520; Longitude: 24.293440
+City id: 9; Latitude: -4.220290; Longitude: 10.718970
+City id: 10; Latitude: 12.303560; Longitude: 129.232840
+City id: 11; Latitude: -9.508390; Longitude: -15.326270
+City id: 12; Latitude: 2.829810; Longitude: 23.899750
+City id: 13; Latitude: -3.589520; Longitude: 32.293440
+City id: 14; Latitude: -4.320290; Longitude: 9.718970
+City id: 15; Latitude: 16.731130; Longitude: 19.082690
+City id: 16; Latitude: -24.566890; Longitude: 23.218730
+City id: 17; Latitude: 35.480680; Longitude: 44.416860
+City id: 18; Latitude: 38.303560; Longitude: 159.232840
+City id: 19; Latitude: -1.508390; Longitude: -25.326270
+City id: 20; Latitude: -2.320290; Longitude: 4.718970
+City id: 21; Latitude: 11.731130; Longitude: 22.082690
+City id: 22; Latitude: -74.566890; Longitude: 83.218730
+City id: 23; Latitude: 13.023830; Longitude: 90.426980
+City id: 24; Latitude: 32.690490; Longitude: 18.201410
+
+Starting of the program, start_t = 6718
+Winning chromosome:
+citiesAmount = 25
+citiesPermutation = 19 6 3 9 13 12 21 15 24 17 4 7 2 1 23 0 10 18 5 22 8 16 14 20 11 
+totalDistance = 72830.777059
+generation = 2667
+
+Total time taken by CPU: 25 seconds
+Exiting of the program...

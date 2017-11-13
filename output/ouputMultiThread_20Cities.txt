@@ -1,0 +1,55 @@
+
+The input is the following:
+
+City id: 0; Latitude: 18.023830; Longitude: 95.426980
+City id: 1; Latitude: 38.690490; Longitude: 83.201410
+City id: 2; Latitude: 26.731130; Longitude: 59.082690
+City id: 3; Latitude: -14.566890; Longitude: 2.218730
+City id: 4; Latitude: 15.480680; Longitude: 51.416860
+City id: 5; Latitude: 18.303560; Longitude: 169.232840
+City id: 6; Latitude: -11.508390; Longitude: -85.326270
+City id: 7; Latitude: 18.829810; Longitude: 53.899750
+City id: 8; Latitude: -29.589520; Longitude: 24.293440
+City id: 9; Latitude: -4.220290; Longitude: 10.718970
+City id: 10; Latitude: 12.303560; Longitude: 129.232840
+City id: 11; Latitude: -9.508390; Longitude: -15.326270
+City id: 12; Latitude: 2.829810; Longitude: 23.899750
+City id: 13; Latitude: -3.589520; Longitude: 32.293440
+City id: 14; Latitude: -4.320290; Longitude: 9.718970
+City id: 15; Latitude: 16.731130; Longitude: 19.082690
+City id: 16; Latitude: -24.566890; Longitude: 23.218730
+City id: 17; Latitude: 35.480680; Longitude: 44.416860
+City id: 18; Latitude: 38.303560; Longitude: 159.232840
+City id: 19; Latitude: -1.508390; Longitude: -25.326270
+
+Starting of the program, start_t = 6230
+In thread #19249, the winning chromosome is the following:
+citiesAmount = 20
+citiesPermutation = 10 0 4 13 16 8 3 11 6 19 14 9 12 15 17 7 2 1 18 5 
+totalDistance = 63034.728131
+generation = 146
+
+
+In thread #19251, the winning chromosome is the following:
+citiesAmount = 20
+citiesPermutation = 5 6 19 11 3 8 16 14 9 15 12 13 4 7 2 17 1 0 10 18 
+totalDistance = 56045.309273
+generation = 62
+
+
+In thread #19248, the winning chromosome is the following:
+citiesAmount = 20
+citiesPermutation = 10 0 13 12 16 8 9 14 3 11 6 19 15 17 4 7 2 1 18 5 
+totalDistance = 64922.962748
+generation = 98
+
+
+In thread #19250, the winning chromosome is the following:
+citiesAmount = 20
+citiesPermutation = 0 1 2 7 4 17 15 12 13 8 16 9 14 3 11 19 6 5 18 10 
+totalDistance = 55175.628814
+generation = 98
+
+
+Total time taken by CPU: 14 seconds
+Exiting of the program...
