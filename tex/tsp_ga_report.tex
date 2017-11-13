@@ -1,0 +1,274 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Journal Article
+% LaTeX Template
+% Version 1.4 (15/5/16)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com) with extensive modifications by
+% Vel (vel@LaTeXTemplates.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[twoside,twocolumn]{article}
+
+\usepackage{blindtext} % Package to generate dummy text throughout this template 
+\usepackage[sc]{mathpazo} % Use the Palatino font
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\linespread{1.05} % Line spacing - Palatino needs more space between lines
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+
+\usepackage[english]{babel} % Language hyphenation and typographical rules
+\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry} % Document margins
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
+\usepackage{booktabs} % Horizontal rules in tables
+
+\usepackage{lettrine} % The lettrine is the first enlarged letter at the beginning of the text
+
+\usepackage{enumitem} % Customized lists
+\setlist[itemize]{noitemsep} % Make itemize lists more compact
+
+\usepackage{abstract} % Allows abstract customization
+\renewcommand{\abstractnamefont}{\normalfont\bfseries} % Set the "Abstract" text to bold
+\renewcommand{\abstracttextfont}{\normalfont\small\itshape} % Set the abstract itself to small italic text
+
+\usepackage{titlesec} % Allows customization of titles
+\renewcommand\thesection{\Roman{section}} % Roman numerals for the sections
+\renewcommand\thesubsection{\roman{subsection}} % roman numerals for subsections
+\titleformat{\section}[block]{\large\scshape\centering}{\thesection.}{1em}{} % Change the look of the section titles
+\titleformat{\subsection}[block]{\large}{\thesubsection.}{1em}{} % Change the look of the section titles
+
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,automata,positioning}
+
+\usepackage{fancyhdr} % Headers and footers
+\pagestyle{fancy} % All pages have headers and footers
+% \fancyhead{} % Blank out the default header
+\fancyfoot{} % Blank out the default footer
+% \fancyhead[C]{Running title $\bullet$ May 2016 $\bullet$ Vol. XXI, No. 1} % Custom header text
+\fancyfoot[RO,LE]{\thepage} % Custom footer text
+
+\usepackage{titling} % Customizing the title section
+
+\usepackage{hyperref} % For hyperlinks in the PDF
+
+\usepackage{xcolor}
+\usepackage{tabu}
+\usepackage{colortbl}
+
+\usepackage{selinput}
+\SelectInputMappings{%
+  aacute={á},
+  oacute={ó},
+  iacute={í},
+  ntilde={ñ},
+  Euro={€}
+}
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+
+\setlength{\droptitle}{-4\baselineskip} % Move the title up
+
+\pretitle{\begin{center}\Huge\bfseries} % Article title formatting
+\posttitle{\end{center}} % Article title closing formatting
+\title{Solving the Traveling Salesman Problem: a multithreaded genetic approach} % Article title
+\author{%
+\textsc{Ibsan Acis Castillo Vitar} \\[1ex] % Your name
+\normalsize School of Sciences and Engineering, Tecnológico de Monterrey, Puebla Campus \\ % Your institution
+\normalsize \href{mailto:A01014779@itesm.mx}{A01014779@itesm.mx} % Your email address
+\and % Uncomment if 2 authors are required, duplicate these 4 lines if more
+\textsc{Luis Fernando Dávalos Domínguez} \\[1ex] % Second author's name
+\normalsize School of Sciences and Engineering, Tecnológico de Monterrey, Puebla Campus \\ % Your institution
+\normalsize \href{mailto:A01128697@itesm.mx}{A01128697@itesm.mx} % Second author's email address
+\and % Uncomment if 2 authors are required, duplicate these 4 lines if more
+\textsc{Salvador Orozco Villalever} \\[1ex] % Second author's name
+\normalsize School of Sciences and Engineering, Tecnológico de Monterrey, Puebla Campus \\ % Your institution
+\normalsize \href{mailto:A07104218@itesm.mx}{A07104218@itesm.mx} % Second author's email address
+}
+\date{\today} % Leave empty to omit a date
+\renewcommand{\maketitlehookd}{%
+\begin{abstract}
+\noindent The Traveling Salesman Problem is a one of the most common NP-Complete problems. It is one of the most complicated problems to solve. Currently, there are no algorithms that can solve the problem in polynomial time, as the number of cities grow, the solution time becomes exponential. The traveling salesman problem is about a salesman that has to visit $N$ number of cities in the shortest path available. For each number of cities $N$, the number of paths available is $N!$, this makes the problem to grow exponentially. We approach the problem via genetic algorithms. 
+\end{abstract}
+}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+% Print the title
+\maketitle
+
+%----------------------------------------------------------------------------------------
+%	ARTICLE CONTENTS
+%----------------------------------------------------------------------------------------
+
+\section{Introduction}
+
+\lettrine[nindent=0em,lines=3]{T}he objective of this project is to create the most optimal solution for the Traveling-Salesman-Problem. The Traveling Salesman Problem consists of a salesman and a set of cities. The salesman has to visit each city once and return to the same city.
+
+Consider the following image. The problem lies in finding the shortest path passing from all vertices once. For example the path $1$:${A,C;D,B,A}$ and $2$:${A,B,C,D,A}$ pass all the vertices once, but path $1$ has a length of $108$ and path $2$, $97$.\linebreak
+
+\begin{tikzpicture}[
+      > = stealth, % arrow head style
+      shorten > = 1pt, % don't touch arrow head to node
+      auto,
+      node distance = 1.5 cm, % distance between nodes
+      semithick % line style
+    ]
+
+    \tikzset{every state}=[
+      draw = black,
+      thick,
+      fill = white,
+      minimum size = 1mm
+    ]
+
+    \node[state] (C) {$C$};
+    \node[state] (D) [right=of C] {$D$};
+    \node[state] (A) [above=of C]{$A$};
+    \node[state] (B) [above=of D] {$B$};
+	
+    \path[-] (A) edge  node[] {20} (B);
+    \path[-] (A) edge  node[] {42} (C);
+    \path[-] (A) edge  node[pos=0.20, above] {35} (D);
+    
+    \path[-] (B) edge  node[pos=0.20, below] {30} (C);
+    \path[-] (B) edge  node[] {34} (D);
+    
+    \path[-] (C) edge  node[] {12} (D);
+\end{tikzpicture}
+    
+The number of cities in this problem is $4$, and there are $4! = 24$ possible routes, which makes the problem exponentially complex as the number of cities grow.\linebreak
+
+We approach this problem with genetic algorithms. We receive the number of cities and its geographic coordinates. We calculate the distance between every city $(n \times n)$, and a permutation of the $N$ cities.\linebreak
+
+%------------------------------------------------
+
+\section{Mathematical Formulation}
+
+For a given $n \times n$ distance matrix $C = (c_{ij})$, find a cyclic permutation $\pi$ of the set $\{1, 2, ..., n\}$ that minimizes the function
+
+\begin{equation}
+c(\pi) = \sum_{i=1}^{n} C_{i\pi(i)}
+\end{equation}
+
+where $c(\pi)$ is the length of the permutation $\pi$, computed through a distance metric. In our case, the metric is the Haversine function to calculate the distance between two fixed points on Earth given the latitude and longitude of each point.
+%------------------------------------------------
+
+\section{Related Work}
+
+The traveling salesman problem was first considered mathematically in the 1930s by Merrill Floyd. In the 1950s and 1960s the problem became increasingly popular in scientific circles in Europe and the USA. Notable contributions were made by George Dantzig, Delbert Ray Fulkerson and Selmer M. Johnson; they expressed the problem as an integer linear problem and developed the cutting plane method.\linebreak
+
+In the following decades, the problem was studied by many researchers from mathematics, computer science, chemistry, physics and other sciences.\linebreak
+
+A chemist, V. Černý, created a thermodynamical approach to the Traveling Salesman Problem. He created a Monte Carlo algorithm to find approximate solutions of the TSP. The algorithm generates random permutations, with probability depending on the length of the corresponding route. Reasoning by analogy with statistical thermodynamics, we use the probability given by the Boltzmann-Gibbs distribution. Using that method they could get very close to the optimal solution.\linebreak
+
+%------------------------------------------------
+
+\section{Methods}
+
+\subsection{Input}
+The input to the program is a text file containing a line with an integer $N$, the number of cities the traveling salesman has to visit. The next $N$ lines contain each two floating-point numbers corresponding to the latitude and longitude of the $i$-th city for $i = 1,2,...,N$.
+
+\subsection{Output}
+The output of the program is the best generated chromosome in terms of the distance required to visit all cities and come back to the first one.
+
+\subsection{Algorithm} 
+The algorithm used to solve this problem is as follows:
+
+\begin{enumerate}
+\item Read the input and store the cities’ information
+\item Set $C$, the total amount of chromosomes the program will work with at any given generation
+\item Create $K$ chromosomes each with a random permutation
+\item Set $G$, the total amount of generations of chromosomes that the program will generate.
+\item For every generation
+\begin{enumerate}
+\item Sort the array with the $C$ chromosomes at generation $i$
+\item Let the first $\frac{C}{4}$ chromosomes live to the next generation
+\item Create $\frac{3C}{4}$ child chromosomes from the $\frac{C}{4}$ chromosomes that passed into the next generation.
+\item Use the following pairing schema to generate child chromosomes:
+\item The $i$-th chromosome with the $(i + 1)$-th chromosome modulo $\frac{C}{4}$
+\item The $i$-th chromosome with the $(i + 2)$-th chromosome modulo $\frac{C}{4}$
+\item The $i$-th chromosome with the $(i + 3)$-th chromosome modulo $\frac{C}{4}$
+\item Create every child chromosome by performing an ordered crossover on the parent chromosomes
+\item Pick a subset of the first parent’s chromosomes and pass them directly to the child chromosome at the same positions 
+\item  Fill in the remaining spaces of the missing chromosomes with the other parent’s chromosomes, making sure no number appears twice in the permutation
+\end{enumerate}
+\item Sort the array of chromosomes one last time
+\item  Return the first chromosome, i.e. the one with the least total distance
+\end{enumerate}
+
+\subsection{Multithreading}
+\begin{enumerate}
+\item First set the number of processors.
+\item Create a struct that will contain all the data what the thread will need to work
+\item with pthread we create an array of threads and with pthread create star the threads
+\item all the threads have the function threadSolution where they will solve the problem
+\item In ThreadSolution star with assigning at each thread a core, if the core that we want to assign to the thread and do not exist , then the thread finish in that moment
+\item The thread will create his own set of chromosomes and solve the problem with the function Solve.
+\item In the end the thread will print the chromosome with the shortest path that the core calculated,
+\end{enumerate}
+
+%------------------------------------------------
+
+\section{Results}
+
+
+%------------------------------------------------
+
+\section{Discussion}
+
+\subsection{Subsection One}
+
+% A statement requiring citation \cite{Figueredo:2009dg}.
+\blindtext % Dummy text
+
+\subsection{Subsection Two}
+
+\blindtext % Dummy text
+
+%----------------------------------------------------------------------------------------
+%	REFERENCE LIST
+%----------------------------------------------------------------------------------------
+
+\begin{thebibliography}{99} % Bibliography - this is intentionally simple in this template
+
+% \bibitem[Figueredo and Wolf, 2009]{Figueredo:2009dg}
+% Figueredo, A.~J. and Wolf, P. S.~A. (2009).
+% \newblock Assortative pairing and life history strategy - a cross-cultural
+%   study.
+% \newblock {\em Human Nature}, 20:317--330.
+
+\bibitem{Černý:1985}
+V. Černý. (1985). 
+\newblock Thermodynamical Approach to the Traveling Salesman Problem: An Efficient Simulation Algorithm. 
+\newblock JOURNAL OF OPTIMIZATION THEORY AND APPLICATION, 45, 1.
+
+\bibitem{UW:2017}
+University of Waterloo. (2007). 
+\newblock History of the TSP. 11/12/2017, University of Waterloo
+\newblock www.math.uwaterloo.ca/tsp/index.html
+
+\bibitem{Steeb:2005}
+Willi-Hans Steeb. (2005). 
+\newblock Genetic Algorithms. 
+\newblock The Nonlinear workbook(350.409). London: World Scientific Publishing.
+
+\end{thebibliography}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
