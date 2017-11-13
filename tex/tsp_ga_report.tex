@@ -104,7 +104,7 @@
   \date{\today} % Leave empty to omit a date
   \renewcommand{\maketitlehookd}{%
   \begin{abstract}
-  \noindent The Traveling Salesman Problem is a one of the most common NP-Complete problems. It is one of the most complicated problems to solve. Currently, there are no algorithms that can solve the problem in polynomial time, as the number of cities grow, the solution time becomes exponential. The traveling salesman problem is about a salesman that has to visit $N$ number of cities in the shortest path available. For each number of cities $N$, the number of paths available is $N!$, this makes the problem to grow exponentially. We approach the problem via genetic algorithms. 
+  \noindent The Traveling Salesman Problem is a one of the most common NP-Complete problems. As one of the most complicated problems in the history of Computer Science, there currently,  are no algorithms that can solve it in polynomial time. The problem's description is simple: given $N$ cities that a salesman has to visit, find the order in which he must visit them to minimize the total distance traveled if he has to visit all cities once and come back to the first city after visiting the last one. For each number of cities $N$, the number of permutations of cities is $N!$, which makes the problem's size grow very fast. We approach the problem via genetic algorithms. 
   \end{abstract}
   }
   
@@ -121,9 +121,9 @@
   
   \section{Introduction}
   
-  \lettrine[nindent=0em,lines=3]{T}he objective of this project is to create the most optimal solution for the Traveling-Salesman-Problem. The Traveling Salesman Problem consists of a salesman and a set of cities. The salesman has to visit each city once and return to the same city.
+  \lettrine[nindent=0em,lines=3]{T}he goal of this project is to obtain the optimal solution for the Traveling Salesman Problem, a problem that consists of a salesman and a set of cities which have to be visited. The salesman has to visit each city once and return to the same city after the last one has been visited.
   
-  Consider the following image. The problem lies in finding the shortest path passing from all vertices once. For example the path $1$:${A,C;D,B,A}$ and $2$:${A,B,C,D,A}$ pass all the vertices once, but path $1$ has a length of $108$ and path $2$, $97$.\linebreak
+  Consider the following image. The problem lies in finding the shortest path visiting all vertices once. For example the path $1$:${A,C;D,B,A}$ and $2$:${A,B,C,D,A}$ pass all the vertices once, but path $1$ has a length of $108$ and path $2$, $97$.\linebreak
   
   \begin{tikzpicture}[
         > = stealth, % arrow head style
@@ -209,20 +209,22 @@
             
               \EndFor
               \State Sort the array of chromosomes one last time
-              \State \textbf{return} the first chromosome in the array
+              \State\textbf{return} the first chromosome in the array
               \EndProcedure
           \end{algorithmic}}
       \end{algorithm}
   
+  \subsubsection{Pairing Schema}
+  
   Use the following pairing schema to generate child chromosomes:
   
   \begin{enumerate}
-  \item The $i$-th chromosome with the $(i + 1)$-th chromosome
-  \item The $i$-th chromosome with the $(i + 2)$-th chromosome
-  \item The $i$-th chromosome with the $(i + 3)$-th chromosome
+  \item The $i$-th chromosome with the $(i + 1)$-th chromosome $\left(1\leq i \leq \frac{C}{4}\right)$
+  \item The $i$-th chromosome with the $(i + 2)$-th chromosome $\left(1\leq i \leq \frac{C}{4}\right)$
+  \item The $i$-th chromosome with the $(i + 3)$-th chromosome $\left(1\leq i \leq \frac{C}{4}\right)$
   \end{enumerate} 
   
-  \textbf{Note: all chromosome indexes are taken modulo $\frac{C}{4}$.}
+  \textit{Note: all indices are taken modulo $\frac{C}{4}$.}
   
   \subsubsection{Ordered Crossover}
   
@@ -293,6 +295,10 @@
   
   \blindtext % Dummy text
   
+  %-------------------------------------------------
+  
+  \section{Conclusion}
+  
   %----------------------------------------------------------------------------------------
   %	REFERENCE LIST
   %----------------------------------------------------------------------------------------
@@ -312,7 +318,7 @@
   
   \bibitem{UW:2017}
   University of Waterloo. (2007). 
-  \newblock History of the TSP. 11/12/2017, University of Waterloo
+  \newblock History of the TSP. University of Waterloo
   \newblock www.math.uwaterloo.ca/tsp/index.html
   
   \bibitem{Steeb:2005}
