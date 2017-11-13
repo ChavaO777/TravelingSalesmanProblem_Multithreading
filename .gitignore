@@ -12,3 +12,9 @@
 *.a
 .DS_Store
 settings.json
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
